@@ -2,3 +2,4 @@
 y=2
 x=2y
 print(x)
+print('Hello world')
