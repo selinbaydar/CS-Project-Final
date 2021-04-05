@@ -180,5 +180,24 @@ z2 = tensor.mul(tensor)
 z3 = torch.rand_like(tensor)
 torch.mul(tensor, tensor, out=z3)
 
+#in place operations
+#example
+print(tensor, "\n")
+tensor.add_(5) #adds 5 to all elements
+#must include a _ suffic
+#could also be x.copy_(y), x.t_()
+print(tensor)
+
+#YOU CAN ALSO ONVERT A TENSOR TO A NUMPY ARRAY!
+t = torch.ones(5)
+print(f"t: {t}")
+n = t.numpy()
+#so it is "tensorname".numpy()
+print(f"n: {n}")
+#if you change the tensor, it also changes the newly converted numpy array
+print(f"t: {t}")
+print(f"n: {n}")
+
+
 
 
