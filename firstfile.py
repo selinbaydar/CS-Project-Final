@@ -82,7 +82,7 @@ for i in range(1, cols * rows + 1):
 import os
 import pandas as pd
 from torchvision.io import read_image
-class CustomImageDataset(FashionMNIST):
+class CustomImageDataset(Dataset):
     def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
         #The __init__ function is run once when instantiating the Dataset object. 
         # We initialize the directory containing the images, the annotations file, 
