@@ -47,3 +47,19 @@ testing_transforms = transforms.Compose([
    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
 
+#imagefolder from torch
+#also passing the transforms
+#load the datasets with ImageFolder
+training_dataset = datasets.ImageFolder(train_dir, transform= training_transforms)
+validation_dataset = datasets.ImageFolder(valid_dir, transform=validation_transforms)
+testing_dataset = datasets.ImageFolder(test_dir, transform=testing_transforms)
+
+#use data loader function to load our data into batches
+#we want to train and test with batches of data
+#load in batches!
+#using the image datasets and the transforms, define the dataloaders
+train_loader = torch.utils.data.DataLoader(training_dataset, batch_size=64, shuffle=True)
+validate_loader = torch.utils.DataLoader(validation_dataset, batch_size=32)
+test_loader = torch.utils.DataLoader(testing_dataset, batch_size=32)
+
+#label mapping
