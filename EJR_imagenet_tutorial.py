@@ -42,11 +42,12 @@ print(out.shape)
 
 #read and store labels from a text file that has all 1000 labels
 with open('imagenet_classes.txt') as f:
-    classes=[line.strip() for line in f.readlines()]
+    labels=[line.strip() for line in f.readlines()]
 
 #find out index where max score output vector occur, this is the index that will be used to make the prediction
 _,index=torch.max(out,1)
 percentage = torch.nn.functional.softmax(out,dim=1)[0]*100
+
 print(labels[index[0]],percentage[index[0]].item())
 
 
