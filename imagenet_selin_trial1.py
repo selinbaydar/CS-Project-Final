@@ -14,10 +14,26 @@ transform = T.Compose([T.Resize(256), T.CenterCrop(224), T.ToTensor(), T.Normali
 #import an image
 import cv2
 
-dataset = datasets.ImageFolder('dog.jpg', transform=transform)
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
-images, labels = next(iter(dataloader))
-helper.imshow(images[0], normalize=False)
+from PIL import Image
+img = Image.open('/Users/selinbaydar/CS-Project-Final/dog.jpg')
+img_t = transform(img)
+batch_t = torch.unsqueeze(img_t, 0)
+
+alexnet.eval()
+out = alexnet(batch_t)
+print(out.shape)
+
+with open('imagenet_classes.txt') as f:
+    labels = [line.strip() for line in f.readlines()]
+
+_, index = torch.max(out, 1)
+percentage = torch.nn.functional.softmax(out, dim=1)[0] * 100
+# import ipdb;
+# ipdb.set_trace()
+print(labels[index[0]], percentage[index[0]].item())
+
+
+
 
 # Save image in set directory
 # Read RGB image
