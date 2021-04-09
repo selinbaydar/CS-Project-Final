@@ -1,3 +1,4 @@
+#written by EJR on 4/8 as part of learning pytorch
 import torch
 import numpy as np
 #initializing a tensor
