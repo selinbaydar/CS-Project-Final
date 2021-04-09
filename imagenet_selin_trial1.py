@@ -14,10 +14,13 @@ transform = T.Compose([T.Resize(256), T.CenterCrop(224), T.ToTensor(), T.Normali
 #import an image
 import cv2
 
-dataset = datasets.ImageFolder('dog.jpg', transform=transform)
-dataloader = torch.utils.data.DataLoader(dataset, batch_size=32, shuffle=True)
-images, labels = next(iter(dataloader))
-helper.imshow(images[0], normalize=False)
+from PIL import Image
+img = Image.open('/Users/selinbaydar/CS-Project-Final/dog.jpg')
+img_t = transform(img)
+batch_t = torch.unsqueeze(img_t, 0)
+
+alexnet.eval()
+
 
 # Save image in set directory
 # Read RGB image
