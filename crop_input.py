@@ -10,39 +10,52 @@
 #Questions:
 #how can we integrate this with other functions we'll write?
 import os
-
+#define a function that has an input called my_directory
 def crop(my_directory):
     my_directory = 'C:\Users\emmar\Downloads\pretend' #i want this to be given in the terminal instead..
-    print pwd
+    #double check that this directory exists
     if os.path.exists(my_directory)
         print('yes')
+
+    #loop over each jpg image in directory
     for filename in os.listdir(my_directory):
         if filename.endswith(".jpg")
             image_counter=os.path.join(my_directory, filename)
             print(os.path.join(my_directory, filename))
         else:
             continue
+        
+        #load image
         from PIL import Image
         img=Image.open(image_counter)
-
+        
+        #transform image by resizing, cropping, etc.
         from torchvision import transforms
             transform = transforms.Compose([transforms.Resize(256),transforms.CenterCrop(224), transforms.ToTensor(), transforms.Normalize(mean=[0.485,0.456,0.406],std=[0.229,0.224,0.225])])
         img_t = transform(img)
+        #visualize transformed image
         plt.imshow(img_t[0])
         plt.show()
+        #create batches WHY ARE WE DOING THIS STEP???
         batch_t = torch.unsqueeze(img_t,0)
         print(batch_t.shape)
-        
+
+        ##ADD CODE TO ZOOM IN HERE, OR MAYBE ADD ANOTHER LOOP
+
+        #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
+
         alexnet.eval() #put model in evaluation mode
         out = alexnet(batch_t)
         print(out.shape)
 
+        #open textfile that has the classes,this will be different for each model, so create another variable
         with open('imagenet_classes.txt') as f:
             labels=[line.strip() for line in f.readlines()]
 
         _ , index = torch.max(out,1)
         percentage = torch.nn.functional.softmax(out,dim=1)[0]*100
-
+        
+        #print the label that the model decides, and the percentage certainty.
         print(labels[index[0]],percentage[index[0]].item())
 
 
