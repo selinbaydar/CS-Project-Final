@@ -57,7 +57,7 @@ def zoom_game(my_directory):
         #load the pre-trained model 
         alexnet = models.alexnet(pretrained=True)
         alexnet.eval() #put model in evaluation mode
-        out = alexnet(batch_t)
+        out = alexnet(batch_t) #batch_t will switch with whatever the cropped version is
         print(out.shape)
 
         #open textfile that has the classes,this will be different for each model, so create another variable
