@@ -1,5 +1,5 @@
 #EJR wrote this code
-#EJR spent 30 minutes writing puesdo code on 4/9
+#EJR spent 30 mins writing puesdo code on 4/9, 1 hour writing on 4/9, 2 hours debugging and adding on 4/10
 
 #define a funciton that takes a folder full of images, then loops through each item in the folder 
 #for each image, normalize it first? or at least normalize the size so that the scale of what we zoom in on is the same
@@ -10,16 +10,21 @@
 #Questions:
 #how can we integrate this with other functions we'll write?
 import os
+import torchvision.models as models
+import torch
+import matplotlib.pyplot as plt
+
 #define a function that has an input called my_directory
-def crop(my_directory):
-    my_directory = 'C:\Users\emmar\Downloads\pretend' #i want this to be given in the terminal instead..
+def zoom_game(my_directory):
+    my_directory = 'Users\emmar\Documents\CLPS0950\CS-Project-Final' #i want this to be given in the terminal instead..
+    print("yes1")
     #double check that this directory exists
-    if os.path.exists(my_directory)
+    if os.path.exists(my_directory):
         print('yes')
 
     #loop over each jpg image in directory
     for filename in os.listdir(my_directory):
-        if filename.endswith(".jpg")
+        if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
             print(os.path.join(my_directory, filename))
         else:
@@ -31,7 +36,13 @@ def crop(my_directory):
         
         #transform image by resizing, cropping, etc.
         from torchvision import transforms
-            transform = transforms.Compose([transforms.Resize(256),transforms.CenterCrop(224), transforms.ToTensor(), transforms.Normalize(mean=[0.485,0.456,0.406],std=[0.229,0.224,0.225])])
+        transform = transforms.Compose([transforms.Resize(256),
+            transforms.CenterCrop(224), 
+            transforms.ToTensor(), 
+            transforms.Normalize(
+                mean=[0.485,0.456,0.406],
+                std=[0.229,0.224,0.225]
+                )])
         img_t = transform(img)
         #visualize transformed image
         plt.imshow(img_t[0])
@@ -43,7 +54,8 @@ def crop(my_directory):
         ##ADD CODE TO ZOOM IN HERE, OR MAYBE ADD ANOTHER LOOP
 
         #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
-
+        #load the pre-trained model 
+        alexnet = models.alexnet(pretrained=True)
         alexnet.eval() #put model in evaluation mode
         out = alexnet(batch_t)
         print(out.shape)
@@ -54,7 +66,7 @@ def crop(my_directory):
 
         _ , index = torch.max(out,1)
         percentage = torch.nn.functional.softmax(out,dim=1)[0]*100
-        
+
         #print the label that the model decides, and the percentage certainty.
         print(labels[index[0]],percentage[index[0]].item())
 
@@ -62,8 +74,3 @@ def crop(my_directory):
         #see what other classes the model thought the image belonged to
         _, indices = torch.sort(out, descending=True)
         print([(labels[idx], percentage[idx].item()) for idx in indices[0][:5]])
-    return()
-
-
-
-
