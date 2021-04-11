@@ -12,15 +12,14 @@
 import os
 import torchvision.models as models
 import torch
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as pltf
+#from crop_img import FUNCTION NAME HERE
 
 #define a function that has an input called my_directory
 def zoom_game(my_directory):
-    my_directory = 'Users\emmar\Documents\CLPS0950\CS-Project-Final' #i want this to be given in the terminal instead..
-    print("yes1")
     #double check that this directory exists
     if os.path.exists(my_directory):
-        print('yes')
+        print('path does exist')
 
     #loop over each jpg image in directory
     for filename in os.listdir(my_directory):
@@ -52,8 +51,11 @@ def zoom_game(my_directory):
         print(batch_t.shape)
 
         ##ADD CODE TO ZOOM IN HERE, OR MAYBE ADD ANOTHER LOOP
+        #batch_t=crop_me(batch_t, add input here relevent to box size)
+        #use break once someone is correct!! use a for loop for box size
 
         #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
+
         #load the pre-trained model 
         alexnet = models.alexnet(pretrained=True)
         alexnet.eval() #put model in evaluation mode
@@ -74,3 +76,4 @@ def zoom_game(my_directory):
         #see what other classes the model thought the image belonged to
         _, indices = torch.sort(out, descending=True)
         print([(labels[idx], percentage[idx].item()) for idx in indices[0][:5]])
+zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final')

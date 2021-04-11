@@ -1,5 +1,7 @@
 #written by EJR on 4/10
-
+# make this into a function that I can call in the big boy function 
+# take in parameter that reflects what level of zoom out we are on
+# 
 from PIL import Image
 image=Image.open("C:/Users/emmar/Documents/CLPS0950/CS-Project-Final/dog.jpg")
 image.show() #display image
@@ -20,6 +22,7 @@ print(image.palette)
 image=image.resize((400,400))
 
 # crop the image
+# create an integer to loop over box sizes.
 box = (1,2,300,300) #coordinates are left,upper,right,lower
 cropped_image=image.crop(box)
 cropped_image.show()
