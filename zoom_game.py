@@ -1,5 +1,4 @@
 #EJR wrote this code
-#EJR spent 30 mins writing puesdo code on 4/9, 1 hour writing on 4/9, 2 hours debugging and adding on 4/10
 
 #define a funciton that takes a folder full of images, then loops through each item in the folder 
 #for each image, normalize it first? or at least normalize the size so that the scale of what we zoom in on is the same
@@ -53,10 +52,13 @@ def zoom_game(my_directory):
         ##ADD CODE TO ZOOM IN HERE, OR MAYBE ADD ANOTHER LOOP
         #batch_t=crop_me(batch_t, add input here relevent to box size)
         #use break once someone is correct!! use a for loop for box size
+        #remember to define left_box,upper_box,right_box,lower_box in the loop (this feeds into crop_img)
 
         #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
 
         #load the pre-trained model 
+
+        #TO DO: figure out how to do multiple models at the same time
         alexnet = models.alexnet(pretrained=True)
         alexnet.eval() #put model in evaluation mode
         out = alexnet(batch_t) #batch_t will switch with whatever the cropped version is
