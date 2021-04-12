@@ -68,6 +68,7 @@ def zoom_game(my_directory):
             #load the pre-trained model 
 
             #TO DO: figure out how to do multiple models at the same time
+            #could we list all of them one by one? and in the end we would only display the outcomes of each?
             alexnet = models.alexnet(pretrained=True)
             alexnet.eval() #put model in evaluation mode
             out = alexnet(batch_t) #batch_t will switch with whatever the cropped version is
@@ -100,6 +101,6 @@ def zoom_game(my_directory):
                 right_box = right_box + 20
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
-                # To do: fix these increments so that they make sense, ie play around and see how much we should increase the box dimensions each time
+                # To do: fix these increments so that they make sense, ie play around and see how much we should increase the box dimensions each time-- we could also just start from the center and zoom out?
                 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
-zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final')
+zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
