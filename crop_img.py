@@ -1,6 +1,5 @@
 #written by EJR on 4/10
-# make this into a function that I can call in the big boy function 
-# take in parameter that reflects what level of zoom out we are on
+# a function that takes in 5 inputs-a photo and 4 inputs specifying the dimensions for cropping, and gives a cropped photo
 
 def crop_me(my_directory,left_box,upper_box,right_box,lower_box):
     from PIL import Image
@@ -34,12 +33,10 @@ def crop_me(my_directory,left_box,upper_box,right_box,lower_box):
     resized_image = cropped_image.resize((round(cropped_image.size[0]*1.5), round(cropped_image.size[1]*1.5)))
     resized_image=resized.image.resize((400,400)) #why isn't this changing anything??
     resized_image.show()
-    # save here if desired
 
-
-    # save processed image
+    # save processed image, is there any reason to save here?...
     resized_image=save('new_name.png')
 
     # To DO: figure out which box dimensions to use..how to make sure we zoom in on the middle rather than on the side
     # these variables will be defined in zoom_game, and change based on if the computer is getting stuff right or not
-crop_me("C:/Users/emmar/Documents/CLPS0950/CS-Project-Final/dog.jpg",1,2,100,140)
+crop_me("C:/Users/emmar/Documents/CLPS0950/CS-Project-Final/dog.jpg",1,2,100,100)
