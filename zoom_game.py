@@ -68,32 +68,61 @@ def zoom_game(my_directory):
             #load the pre-trained model 
 
             #TO DO: figure out how to do multiple models at the same time
+            # we will evaluate multiple models: 5 total 
             #could we list all of them one by one? and in the end we would only display the outcomes of each?
             alexnet = models.alexnet(pretrained=True)
-            alexnet.eval() #put model in evaluation mode
-            out = alexnet(batch_t) #batch_t will switch with whatever the cropped version is
-            print(out.shape)
+            googlenet = models.googlenet(pretrained=True)
+            resnet18 = models.resnet18(pretrained=True)
+            shufflenet = models.shufflenet_v2_x1_0(pretrained=True)
+            mobilenet_v2 = models.mobilenet_v2(pretrained=True)
+            
+            #put model in evaluation mode
+            alexnet.eval()
+            googlenet.eval()
+            resnet18.eval()
+            shufflenet.eval()
+            mobilenet_v2.eval()
+
+            out1 = alexnet(batch_t)
+            out2 = googlenet(batch_t)
+            out3 = resnet18(batch_t)
+            out4 = shufflenet(batch_t)
+            out5 = mobilenet_v2(batch_t)
+            print(out1.shape)
+            print(out2.shape)
+            print(out3.shape)
+            print(out4.shape)
+            print(out5.shape)
 
             #open textfile that has the classes,this will be different for each model, so create another variable
             with open('imagenet_classes.txt') as f:
                 labels=[line.strip() for line in f.readlines()]
 
-            _ , index = torch.max(out,1)
-            percentage = torch.nn.functional.softmax(out,dim=1)[0]*100
-
+            _ , index1 = torch.max(out1,1)
+            percentage1 = torch.nn.functional.softmax(out1,dim=1)[0]*100
+            _ , index2 = torch.max(out2,1)
+            percentage2 = torch.nn.functional.softmax(out2,dim=1)[0]*100
+            _ , index3 = torch.max(out3,1)
+            percentage3 = torch.nn.functional.softmax(out3,dim=1)[0]*100
+            _ , index4 = torch.max(out4,1)
+            percentage4 = torch.nn.functional.softmax(out4,dim=1)[0]*100
+            _ , index5 = torch.max(out5,1)
+            percentage5 = torch.nn.functional.softmax(out5,dim=1)[0]*100
+            #how to make this work for multiple sets? because index is built in so we can't make it change each time
             #print the label that the model decides, and the percentage certainty.
-            print(labels[index[0]],percentage[index[0]].item())
+            print(labels[index1[0]],percentage1[index1[0]].item())
+            print(labels[index2[0]],percentage2[index2[0]].item())
+            print(labels[index3[0]],percentage3[index3[0]].item())
+            print(labels[index4[0]],percentage4[index4[0]].item())
+            print(labels[index5[0]],percentage5[index5[0]].item())
 
-
-            #see what other classes the model thought the image belonged to, this step might not be needed
-            _, indices = torch.sort(out, descending=True)
-            print([(labels[idx], percentage[idx].item()) for idx in indices[0][:5]])
-
+            #
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
-            if labels[index[0]] = answers[index[0]]: #if alexnet can correclty identify object, escape loop
+            if labels[index1[0]] = answers[index[0]]: #if alexnet can correclty identify object, escape loop
                 # to do: create answers! we need a text file that has the answers for 5-10 photos that we are going to play this game with
                 # to do: select 10 photos that we want to use to run this game. need to make sure that all 10 can fall under one of the classes of the various models we use
                 # to do: decide which other models (besides alexnet) we want to compare
+                # output that says current crop, if it was correct. 
                 break
             else: #if alexnet is not correct, zoom out by changing box sizes with the counter
                 left_box = left_box + 20
@@ -101,6 +130,42 @@ def zoom_game(my_directory):
                 right_box = right_box + 20
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
+
+            if labels[index2[0]] = answers[index[0]]:
+                break
+            else:
+                left_box = left_box + 20
+                upper_box = upper_box + 20
+                right_box = right_box + 20
+                lower_box = lower_box + 20
+                counter=max(left_box,upper_box,right_box,lower_box)
+
+            if labels[index3[0]] = answers[index[0]]:
+                break
+            else:
+                left_box = left_box + 20
+                upper_box = upper_box + 20
+                right_box = right_box + 20
+                lower_box = lower_box + 20
+                counter=max(left_box,upper_box,right_box,lower_box)
+            if labels[index4[0]] = answers[index[0]]:
+                break
+            else:
+                left_box = left_box + 20
+                upper_box = upper_box + 20
+                right_box = right_box + 20
+                lower_box = lower_box + 20
+                counter=max(left_box,upper_box,right_box,lower_box)
+            if labels[index5[0]] = answers[index[0]]:
+                break
+            else:
+                left_box = left_box + 20
+                upper_box = upper_box + 20
+                right_box = right_box + 20
+                lower_box = lower_box + 20
+                counter=max(left_box,upper_box,right_box,lower_box)
+
+                # three outputs: 1. correct yes or no, 2. crop size, 3. reaction time
                 # To do: fix these increments so that they make sense, ie play around and see how much we should increase the box dimensions each time-- we could also just start from the center and zoom out?
                 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
 zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
