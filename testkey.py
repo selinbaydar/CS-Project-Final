@@ -2,4 +2,5 @@
 with open('answer_key.txt') as g:
     answers=[line.strip() for line in g.readlines()]
     img_counter=2
-    print(answers[img_counter])
+    print(answers[img_counter], answers[0])
+

@@ -31,11 +31,11 @@ def crop_me(my_directory,left_box,upper_box,right_box,lower_box):
 
     # Make the new image 1 and a half the width and one and a half the height of the original image
     resized_image = cropped_image.resize((round(cropped_image.size[0]*1.5), round(cropped_image.size[1]*1.5)))
-    resized_image=resized.image.resize((400,400)) #why isn't this changing anything??
+    resized_image=resized_image.resize((400,400)) #why isn't this changing anything??
     resized_image.show()
 
     # save processed image, is there any reason to save here?...
-    resized_image=save('new_name.png')
+    #resized_image=save('new_name.png')
 
     # To DO: figure out which box dimensions to use..how to make sure we zoom in on the middle rather than on the side
     # these variables will be defined in zoom_game, and change based on if the computer is getting stuff right or not
