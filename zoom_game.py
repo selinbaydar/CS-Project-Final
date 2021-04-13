@@ -24,6 +24,8 @@ def zoom_game(my_directory):
 
     #loop over each jpg image in directory
     for filename in os.listdir(my_directory):
+        # initialize an img_counter to keep track of how many times we've gone through this first loop/which image and therefore answer key index we are at
+        img_counter = 0
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
             print(os.path.join(my_directory, filename))
@@ -116,11 +118,13 @@ def zoom_game(my_directory):
             print(labels[index4[0]],percentage4[index4[0]].item())
             print(labels[index5[0]],percentage5[index5[0]].item())
 
-            #
+            #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
+            with open('answer_key.txt') as g:
+                answers=[line.strip() for line in g.readlines()]
+
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
-            if labels[index1[0]] = answers[index[0]]: #if alexnet can correclty identify object, escape loop
-                # to do: create answers! we need a text file that has the answers for 5-10 photos that we are going to play this game with
-                # to do: select 10 photos that we want to use to run this game. need to make sure that all 10 can fall under one of the classes of the various models we use
+            if labels[index1[0]] = answers[img_counter]: #if alexnet can correclty identify object, escape loop
+        
                 # to do: decide which other models (besides alexnet) we want to compare
                 # output that says current crop, if it was correct. 
                 break
@@ -131,7 +135,7 @@ def zoom_game(my_directory):
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
 
-            if labels[index2[0]] = answers[index[0]]:
+            if labels[index2[0]] = answers[img_counter]::
                 break
             else:
                 left_box = left_box + 20
@@ -140,7 +144,7 @@ def zoom_game(my_directory):
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
 
-            if labels[index3[0]] = answers[index[0]]:
+            if labels[index3[0]] = answers[img_counter]:
                 break
             else:
                 left_box = left_box + 20
@@ -148,7 +152,7 @@ def zoom_game(my_directory):
                 right_box = right_box + 20
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
-            if labels[index4[0]] = answers[index[0]]:
+            if labels[index4[0]] = answers[img_counter]:
                 break
             else:
                 left_box = left_box + 20
@@ -156,7 +160,7 @@ def zoom_game(my_directory):
                 right_box = right_box + 20
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
-            if labels[index5[0]] = answers[index[0]]:
+            if labels[index5[0]] = answers[img_counter]: #labels are the model indexes, answers is our answerkey
                 break
             else:
                 left_box = left_box + 20
@@ -165,6 +169,8 @@ def zoom_game(my_directory):
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
 
+        # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
+        img_counter = img_counter+1
                 # three outputs: 1. correct yes or no, 2. crop size, 3. reaction time
                 # To do: fix these increments so that they make sense, ie play around and see how much we should increase the box dimensions each time-- we could also just start from the center and zoom out?
                 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
