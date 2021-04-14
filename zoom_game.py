@@ -11,8 +11,9 @@
 import os
 import torchvision.models as models
 import torch
-import matplotlib.pyplot as pltf
-from crop_img import crop_me #comment this out if you want to run without cropping/test it before we figure out that loop
+import matplotlib.pyplot as plt
+#import tensorflow??
+from crop_img import crop_me #comment this out if you want to run without cropping
 from PIL import Image
 from torchvision import transforms
 
@@ -20,7 +21,7 @@ from torchvision import transforms
 def zoom_game(my_directory):
     #double check that this directory exists
     if os.path.exists(my_directory):
-        print('path does exist')
+        print('path exists')
 
     #loop over each jpg image in directory
     for filename in os.listdir(my_directory):
@@ -90,11 +91,7 @@ def zoom_game(my_directory):
             out3 = resnet18(batch_t)
             out4 = shufflenet(batch_t)
             out5 = mobilenet_v2(batch_t)
-            print(out1.shape)
-            print(out2.shape)
-            print(out3.shape)
-            print(out4.shape)
-            print(out5.shape)
+            print(out1.shape,out2.shape,out3.shape,out4.shape,out5.shape)
 
             #open textfile that has the classes,this will be different for each model, so create another variable
             with open('imagenet_classes.txt') as f:
@@ -123,7 +120,7 @@ def zoom_game(my_directory):
                 answers=[line.strip() for line in g.readlines()]
 
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
-            if labels[index1[0]] = answers[img_counter]: #if alexnet can correclty identify object, escape loop
+            if labels[index1[0]] == answers[img_counter]: #if alexnet can correclty identify object, escape loop
         
                 # to do: decide which other models (besides alexnet) we want to compare
                 # output that says current crop, if it was correct. 
@@ -135,7 +132,7 @@ def zoom_game(my_directory):
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
 
-            if labels[index2[0]] = answers[img_counter]::
+            if labels[index2[0]] == answers[img_counter]:
                 break
             else:
                 left_box = left_box + 20
@@ -144,7 +141,7 @@ def zoom_game(my_directory):
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
 
-            if labels[index3[0]] = answers[img_counter]:
+            if labels[index3[0]] == answers[img_counter]:
                 break
             else:
                 left_box = left_box + 20
@@ -152,7 +149,7 @@ def zoom_game(my_directory):
                 right_box = right_box + 20
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
-            if labels[index4[0]] = answers[img_counter]:
+            if labels[index4[0]] == answers[img_counter]:
                 break
             else:
                 left_box = left_box + 20
@@ -160,7 +157,7 @@ def zoom_game(my_directory):
                 right_box = right_box + 20
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
-            if labels[index5[0]] = answers[img_counter]: #labels are the model indexes, answers is our answerkey
+            if labels[index5[0]] == answers[img_counter]: #labels are the model indexes, answers is our answerkey
                 break
             else:
                 left_box = left_box + 20
