@@ -114,57 +114,36 @@ def zoom_game(my_directory):
             print(labels[index3[0]],percentage3[index3[0]].item())
             print(labels[index4[0]],percentage4[index4[0]].item())
             print(labels[index5[0]],percentage5[index5[0]].item())
+            #models = [labels[index1[0], labels[index2[0], etc]
 
             #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
             with open('answer_key.txt') as g:
                 answers=[line.strip() for line in g.readlines()]
 
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
-            if labels[index1[0]] == answers[img_counter]: #if alexnet can correclty identify object, escape loop
-        
-                # to do: decide which other models (besides alexnet) we want to compare
+            score_list = [model == answers[img_counter] for model in models]: # gives list of 1 and 0 which shows if given model is correct in prediction or not 
+            # use all function, tells us if every item is true (1)
+            if all(score_list) = True:
+                break
+            else:#if alexnet is not correct, zoom out by changing box sizes with the counter
+                left_box = left_box - 20
+                upper_box = upper_box - 20
+                right_box = right_box + 20
+                lower_box = lower_box + 20
+                counter=max(left_box,upper_box,right_box,lower_box)
+
+            #if labels[index1[0]] == answers[img_counter]:# for __ in ____: #if alexnet can correclty identify object, escape loop
+                # store variables that pertain to each model, at the end only print first index or something
+                # look at python builtin funciton called any, which takes a list and if any element in list =0 it returns true
+                # look at python builtin function called all
+                # take list where each element of list compares network answer with correct answer, then using that list (score list for each round of crop), 
+                # list comprehension, looping through each model
+                    #[model == correct_answer for model in models]
+                    #models would be a list of all the models in output.
+                    #if any(correctList): # do logic that expands box
+                # in list comprehension call list for models in models 
+
                 # output that says current crop, if it was correct. 
-                break
-            else: #if alexnet is not correct, zoom out by changing box sizes with the counter
-                left_box = left_box + 20
-                upper_box = upper_box + 20
-                right_box = right_box + 20
-                lower_box = lower_box + 20
-                counter=max(left_box,upper_box,right_box,lower_box)
-
-            if labels[index2[0]] == answers[img_counter]:
-                break
-            else:
-                left_box = left_box + 20
-                upper_box = upper_box + 20
-                right_box = right_box + 20
-                lower_box = lower_box + 20
-                counter=max(left_box,upper_box,right_box,lower_box)
-
-            if labels[index3[0]] == answers[img_counter]:
-                break
-            else:
-                left_box = left_box + 20
-                upper_box = upper_box + 20
-                right_box = right_box + 20
-                lower_box = lower_box + 20
-                counter=max(left_box,upper_box,right_box,lower_box)
-            if labels[index4[0]] == answers[img_counter]:
-                break
-            else:
-                left_box = left_box + 20
-                upper_box = upper_box + 20
-                right_box = right_box + 20
-                lower_box = lower_box + 20
-                counter=max(left_box,upper_box,right_box,lower_box)
-            if labels[index5[0]] == answers[img_counter]: #labels are the model indexes, answers is our answerkey
-                break
-            else:
-                left_box = left_box + 20
-                upper_box = upper_box + 20
-                right_box = right_box + 20
-                lower_box = lower_box + 20
-                counter=max(left_box,upper_box,right_box,lower_box)
 
         # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
         img_counter = img_counter+1

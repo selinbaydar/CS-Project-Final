@@ -46,7 +46,7 @@ print(batch_t.shape)
 
 #step5: model inferenc, use pre-trained model to see what model thinks of image
 alexnet.eval() #put model in evaluation mode
-out = alexnet(batch_t)
+out = alexnet(img_t)
 print(out.shape)
 
 #read and store labels from a text file that has all 1000 labels

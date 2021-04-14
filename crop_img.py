@@ -1,7 +1,7 @@
 #written by EJR on 4/10
 # a function that takes in 5 inputs-a photo and 4 inputs specifying the dimensions for cropping, and gives a cropped photo
 
-def crop_me(my_directory,left_box,upper_box,right_box,lower_box):
+def crop_me(my_img,left_box,upper_box,right_box,lower_box):
     from PIL import Image
     image=Image.open(my_directory)
     image.show() #display image
