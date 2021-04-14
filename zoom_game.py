@@ -4,8 +4,6 @@
 #for each image, normalize it first? or at least normalize the size so that the scale of what we zoom in on is the same
 #zoom in on the center of the image, feed image to alexnet (or other model) and if alexnet can give the correct answer, the  size of the zoomed in image is the output
 #if alexnet cannot give the correct answer, zoom out slightly, repeat until alexnet can identify what the image is
-#use break once someone is correct!! use a for loop for box size
-
 
 #import all required packages, make sure they are previously installed in workspace
 import os
@@ -35,8 +33,7 @@ def zoom_game(my_directory):
         
         #load image
         img=Image.open(image_counter)
-        
-        #transform image by resizing, cropping, etc.
+
         transform = transforms.Compose([transforms.Resize(256),
             transforms.CenterCrop(224), 
             transforms.ToTensor(), 
@@ -114,7 +111,9 @@ def zoom_game(my_directory):
             print(labels[index3[0]],percentage3[index3[0]].item())
             print(labels[index4[0]],percentage4[index4[0]].item())
             print(labels[index5[0]],percentage5[index5[0]].item())
-            #models = [labels[index1[0], labels[index2[0], etc]
+            
+            # create a vector with all the answers from all the models
+            models = [labels[index1[0], labels[index2[0], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
 
             #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
             with open('answer_key.txt') as g:
@@ -132,18 +131,7 @@ def zoom_game(my_directory):
                 lower_box = lower_box + 20
                 counter=max(left_box,upper_box,right_box,lower_box)
 
-            #if labels[index1[0]] == answers[img_counter]:# for __ in ____: #if alexnet can correclty identify object, escape loop
-                # store variables that pertain to each model, at the end only print first index or something
-                # look at python builtin funciton called any, which takes a list and if any element in list =0 it returns true
-                # look at python builtin function called all
-                # take list where each element of list compares network answer with correct answer, then using that list (score list for each round of crop), 
-                # list comprehension, looping through each model
-                    #[model == correct_answer for model in models]
-                    #models would be a list of all the models in output.
-                    #if any(correctList): # do logic that expands box
-                # in list comprehension call list for models in models 
-
-                # output that says current crop, if it was correct. 
+        # to do: define output that says current crop and if it was correct for each model. 
 
         # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
         img_counter = img_counter+1
