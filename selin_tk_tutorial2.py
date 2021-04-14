@@ -47,12 +47,53 @@ window = tk.Tk()
 
 #BUTTONS
 
-button = tk.Button(
-    text = "Click me!",
-    width = 25,
-    height = 5,
-    bg = "yellow",
-    fg = "black"
-)
-button.pack()
+# button = tk.Button(
+#     text = "Click me!",
+#     width = 25,
+#     height = 5,
+#     bg = "yellow", 
+#     fg = "black"
+# )
+# button.pack()
+# window.mainloop()
+
+#ENTRY
+#creates a small textbox a user could type into
+
+# entry = tk.Entry(
+#     fg="black",
+#     bg="blue",
+#     width=50
+# )
+# entry.pack()
+# window.mainloop()
+
+#HOW TO GET INPUT FROM A USER FROM THE ENTRY
+#3 ways:
+# retrieving text with .get
+# deleting text with .Delete
+# inseerting text with .insert
+
+#An example entry
+label = tk.Label(text="Name") #describes what sort of text should go into the Entry widget
+entry = tk.Entry()
+label.pack()
+entry.pack() #you need to pack both the label and theee entry! so all the widgets always pack
 window.mainloop()
+#note- label always comes above entry in tkinter
+
+#to retrieve the text entry of the entry use get!
+name = entry.get()
+name #would show you the input to your textbok
+
+#to delete text- for example the first letter of the input
+entry.delete(0)
+#or delete a word by deleting it based on its indeces
+entry.delete(0, 4) #from the first to the 5th index
+entry.delete(0, tk.END) #to delete the entire entry in the textbok
+
+#you can also insert text to the box!
+entry.insert(0, "Python") #from the first index add the word!
+
+
+
