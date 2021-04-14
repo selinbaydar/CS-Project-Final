@@ -52,12 +52,13 @@ def zoom_game(my_directory):
         # now take the image and zoom in on it using a the function crop_me
 
         #initialize variables for crop_me loop
-        left_box=1
-        upper_box=2
-        right_box=100
-        lower_box=100
+        left_box=200
+        upper_box=200
+        right_box=200
+        lower_box=200
         counter=max(left_box,upper_box,right_box,lower_box)
         for counter in range(1,400): # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
+        # to do: make this counter range accurate for limitations of crop_me/how the box dimensions work
             batch_t=crop_me(batch_t,left_box,upper_box,right_box,lower_box)
 
             #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
@@ -65,9 +66,8 @@ def zoom_game(my_directory):
             # to do: plan what we want GUI to look at and when 
                 # Geo suggested having the user decide what the image is via a multiple choice question
             
-            #load the pre-trained model 
+            #load the pre-trained models 
 
-            #TO DO: figure out how to do multiple models at the same time
             # we will evaluate multiple models: 5 total 
             #could we list all of them one by one? and in the end we would only display the outcomes of each?
             alexnet = models.alexnet(pretrained=True)
@@ -91,6 +91,9 @@ def zoom_game(my_directory):
             print(out1.shape,out2.shape,out3.shape,out4.shape,out5.shape)
 
             #open textfile that has the classes,this will be different for each model, so create another variable
+            with open('answer_key.txt') as g:
+                answers=[line.strip() for line in g.readlines()]
+
             with open('imagenet_classes.txt') as f:
                 labels=[line.strip() for line in f.readlines()]
 
@@ -116,19 +119,20 @@ def zoom_game(my_directory):
             models = [labels[index1[0], labels[index2[0], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
 
             #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
-            with open('answer_key.txt') as g:
-                answers=[line.strip() for line in g.readlines()]
+            #with open('answer_key.txt') as g:
+            #    answers=[line.strip() for line in g.readlines()]
 
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
-            score_list = [model == answers[img_counter] for model in models]: # gives list of 1 and 0 which shows if given model is correct in prediction or not 
+            # score list will store 0 and 1s to say if model matches answer key or not
+            score_list = [model == answers[img_counter] for model in models]:
             # use all function, tells us if every item is true (1)
             if all(score_list) = True:
                 break
             else:#if alexnet is not correct, zoom out by changing box sizes with the counter
-                left_box = left_box - 20
-                upper_box = upper_box - 20
-                right_box = right_box + 20
-                lower_box = lower_box + 20
+                left_box = left_box - 10
+                upper_box = upper_box - 10
+                right_box = right_box + 10
+                lower_box = lower_box + 10
                 counter=max(left_box,upper_box,right_box,lower_box)
 
         # to do: define output that says current crop and if it was correct for each model. 
@@ -136,6 +140,5 @@ def zoom_game(my_directory):
         # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
         img_counter = img_counter+1
                 # three outputs: 1. correct yes or no, 2. crop size, 3. reaction time
-                # To do: fix these increments so that they make sense, ie play around and see how much we should increase the box dimensions each time-- we could also just start from the center and zoom out?
                 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
 zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
