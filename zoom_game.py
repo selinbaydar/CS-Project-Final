@@ -32,34 +32,34 @@ def zoom_game(my_directory):
             continue
         
         #load image
-        img=Image.open(image_counter)
-
-        transform = transforms.Compose([transforms.Resize(256),
-            transforms.CenterCrop(224), 
-            transforms.ToTensor(), 
-            transforms.Normalize(
-                mean=[0.485,0.456,0.406],
-                std=[0.229,0.224,0.225]
-                )])
-        img_t = transform(img)
-        #visualize transformed image
-        plt.imshow(img_t[0])
-        plt.show()
-        #create batches WHY ARE WE DOING THIS STEP???
-        batch_t = torch.unsqueeze(img_t,0)
-        print(batch_t.shape)
-
-        # now take the image and zoom in on it using a the function crop_me
-
-        #initialize variables for crop_me loop
+        img = Image.open(image_counter)
         left_box=200
         upper_box=200
         right_box=200
         lower_box=200
         counter=max(left_box,upper_box,right_box,lower_box)
+
+        # now take the image and zoom in on it using a the function crop_me
+        
         for counter in range(1,400): # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
         # to do: make this counter range accurate for limitations of crop_me/how the box dimensions work
-            batch_t=crop_me(batch_t,left_box,upper_box,right_box,lower_box)
+            img_croped=crop_me(img,left_box,upper_box,right_box,lower_box)
+
+            transform = transforms.Compose([transforms.Resize(256),
+                transforms.CenterCrop(224), 
+                transforms.ToTensor(), 
+                transforms.Normalize(
+                    mean=[0.485,0.456,0.406],
+                    std=[0.229,0.224,0.225]
+                    )])
+            img_t = transform(img_croped)
+
+            #visualize transformed image
+            plt.imshow(img_t[0])
+            plt.show()
+            #create batches WHY ARE WE DOING THIS STEP???
+            batch_t = torch.unsqueeze(img_t,0)
+            print(batch_t.shape)
 
             #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
             # to do: figure out how to integrate GUI starting at this point in the code
@@ -117,7 +117,7 @@ def zoom_game(my_directory):
             
             # create a vector with all the answers from all the models
             models = [labels[index1[0], labels[index2[0], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
-
+            print(models)
             #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
             #with open('answer_key.txt') as g:
             #    answers=[line.strip() for line in g.readlines()]

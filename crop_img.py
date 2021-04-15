@@ -1,6 +1,8 @@
 #written by EJR on 4/10
 # a function that takes in 5 inputs-a photo and 4 inputs specifying the dimensions for cropping, and gives a cropped photo
-
+# find a tensor--> image funciton and vice versa
+# need this to be in pytorch...need the input to be a tensor not an image. 
+# how to crop a tensor?? 
 def crop_me(my_img,left_box,upper_box,right_box,lower_box):
     from PIL import Image
     image=Image.open(my_img)
