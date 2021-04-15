@@ -27,24 +27,23 @@ def zoom_game(my_directory):
         img_counter = 0
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
-            print(os.path.join(my_directory, filename))
+            print(image_counter)
         else:
             continue
         
         #load image
         img = Image.open(image_counter)
-        left_box=200
-        upper_box=200
-        right_box=200
-        lower_box=200
+        left_box=190
+        upper_box=190
+        right_box=210
+        lower_box=210
         counter=max(left_box,upper_box,right_box,lower_box)
-
         # now take the image and zoom in on it using a the function crop_me
-        
-        for counter in range(1,400): # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
-        # to do: make this counter range accurate for limitations of crop_me/how the box dimensions work
-            img_croped=crop_me(img,left_box,upper_box,right_box,lower_box)
 
+        while counter < 400: # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
+        # to do: make this counter range accurate for limitations of crop_me/how the box dimensions work
+            img_croped = crop_me(img,left_box,upper_box,right_box,lower_box)
+            
             transform = transforms.Compose([transforms.Resize(256),
                 transforms.CenterCrop(224), 
                 transforms.ToTensor(), 
@@ -57,7 +56,7 @@ def zoom_game(my_directory):
             #visualize transformed image
             plt.imshow(img_t[0])
             plt.show()
-            #create batches WHY ARE WE DOING THIS STEP???
+            #create batches, now we can stack images because this turns 3D into 4D
             batch_t = torch.unsqueeze(img_t,0)
             print(batch_t.shape)
 
@@ -67,15 +66,15 @@ def zoom_game(my_directory):
                 # Geo suggested having the user decide what the image is via a multiple choice question
             
             #load the pre-trained models 
-
             # we will evaluate multiple models: 5 total 
             #could we list all of them one by one? and in the end we would only display the outcomes of each?
+            # to do: change variables 
             alexnet = models.alexnet(pretrained=True)
-            googlenet = models.googlenet(pretrained=True)
+            googlenet = models.squeezenet1_0(pretrained=True)
             resnet18 = models.resnet18(pretrained=True)
-            shufflenet = models.shufflenet_v2_x1_0(pretrained=True)
-            mobilenet_v2 = models.mobilenet_v2(pretrained=True)
-            
+            shufflenet = models.vgg16(pretrained=True)
+            mobilenet_v2 = models.densenet161(pretrained=True)
+            import ipdb;ipdb.set_trace() #setting a breakpoint
             #put model in evaluation mode
             alexnet.eval()
             googlenet.eval()
@@ -116,17 +115,16 @@ def zoom_game(my_directory):
             print(labels[index5[0]],percentage5[index5[0]].item())
             
             # create a vector with all the answers from all the models
-            models = [labels[index1[0], labels[index2[0], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
-            print(models)
+            all_index = [labels[index1[0]], labels[index2[0]], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
             #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
             #with open('answer_key.txt') as g:
             #    answers=[line.strip() for line in g.readlines()]
 
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
             # score list will store 0 and 1s to say if model matches answer key or not
-            score_list = [model == answers[img_counter] for model in models]:
+            score_list = [model == answers[img_counter] for model in all_index]
             # use all function, tells us if every item is true (1)
-            if all(score_list) = True:
+            if all(score_list) == True:
                 break
             else:#if alexnet is not correct, zoom out by changing box sizes with the counter
                 left_box = left_box - 10
@@ -141,4 +139,5 @@ def zoom_game(my_directory):
         img_counter = img_counter+1
                 # three outputs: 1. correct yes or no, 2. crop size, 3. reaction time
                 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
+    # to do: add return 
 zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local

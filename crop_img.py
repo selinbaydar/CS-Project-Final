@@ -3,23 +3,8 @@
 # find a tensor--> image funciton and vice versa
 # need this to be in pytorch...need the input to be a tensor not an image. 
 # how to crop a tensor?? 
-def crop_me(my_img,left_box,upper_box,right_box,lower_box):
-    from PIL import Image
-    image=Image.open(my_img)
-    image.show() #display image
-
-    # The file format of the source file.
-    print(image.format)
-
-    # The pixel format used by the image. Typical values are "1", "L", "RGB", or "CMYK."
-    print(image.mode)
-
-    # Image size, in pixels. The size is given as a 2-tuple (width, height).
-    print(image.size)
-
-    # Colour palette table, if any.
-    print(image.palette)
-
+def crop_me(image,left_box,upper_box,right_box,lower_box):
+    
     # resize the image
     image=image.resize((400,400))
 
@@ -37,11 +22,12 @@ def crop_me(my_img,left_box,upper_box,right_box,lower_box):
     resized_image.show()
 
     # save processed image, is there any reason to save here?...
-    resized_image=save('new_name.png')
+    #resized_image=save('new_name.png')
 
     # To DO: figure out which box dimensions to use..how to make sure we zoom in on the middle rather than on the side
     # these variables will be defined in zoom_game, and change based on if the computer is getting stuff right or not
-crop_me("C:/Users/emmar/Documents/CLPS0950/CS-Project-Final/jeep.jpg",160,160,240,240)
+    return resized_image
+#crop_me("C:/Users/emmar/Documents/CLPS0950/CS-Project-Final/jeep.jpg",160,160,240,240)
 #EJR notes on testing how to crop on 4/14
 # 20,20,100,100 was white
 # 120,120,200,200 was zoomed in on center of dog neck
