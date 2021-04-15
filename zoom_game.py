@@ -90,6 +90,8 @@ def zoom_game(my_directory):
             print(out1.shape,out2.shape,out3.shape,out4.shape,out5.shape)
 
             #open textfile that has the classes,this will be different for each model, so create another variable
+            # to do: make this in alphabetic order and figure out how to loop through the images in this same order
+                # (needs to be able to be the same on any computer, not just dependent of my own folder order)
             with open('answer_key.txt') as g:
                 answers=[line.strip() for line in g.readlines()]
 
