@@ -1,6 +1,7 @@
 #EJR wrote, debugged and tested this code
 #SB reviewed this code and helped brainstorm changes
 
+# settings CV for EJR: python.pythonPath": "C:\\Users\\emmar\\Anaconda3\\envs\\CLPS0950\\python.exe
 #define a funciton that takes a folder full of images, then loops through each item in the folder 
 #for each image, normalize it first? or at least normalize the size so that the scale of what we zoom in on is the same
 #zoom in on the center of the image, feed image to alexnet (or other model) and if alexnet can give the correct answer, the  size of the zoomed in image is the output
