@@ -20,13 +20,14 @@ def zoom_game(my_directory):
     #double check that this directory exists
     if os.path.exists(my_directory):
         print('path exists')
-
+    import ipdb;ipdb.set_trace() #setting a breakpoint
     #loop over each jpg image in directory
     for filename in os.listdir(my_directory):
         # initialize an img_counter to keep track of how many times we've gone through this first loop/which image and therefore answer key index we are at
         img_counter = 0
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
+            image_counter=sorted(image_counter)
             print(image_counter)
         else:
             continue
@@ -70,30 +71,28 @@ def zoom_game(my_directory):
             #could we list all of them one by one? and in the end we would only display the outcomes of each?
             # to do: change variables 
             alexnet = models.alexnet(pretrained=True)
-            googlenet = models.squeezenet1_0(pretrained=True)
+            squeezenet1_0 = models.squeezenet1_0(pretrained=True)
             resnet18 = models.resnet18(pretrained=True)
-            shufflenet = models.vgg16(pretrained=True)
-            mobilenet_v2 = models.densenet161(pretrained=True)
-            import ipdb;ipdb.set_trace() #setting a breakpoint
+            vgg16 = models.vgg16(pretrained=True)
+            densenet161 = models.densenet161(pretrained=True)
+            #import ipdb;ipdb.set_trace() #setting a breakpoint
             #put model in evaluation mode
             alexnet.eval()
-            googlenet.eval()
+            squeezenet1_0.eval()
             resnet18.eval()
-            shufflenet.eval()
-            mobilenet_v2.eval()
+            vgg16.eval()
+            densenet161.eval()
 
             out1 = alexnet(batch_t)
-            out2 = googlenet(batch_t)
+            out2 = squeezenet1_0(batch_t)
             out3 = resnet18(batch_t)
-            out4 = shufflenet(batch_t)
-            out5 = mobilenet_v2(batch_t)
+            out4 = vgg16(batch_t)
+            out5 = densenet161(batch_t)
             print(out1.shape,out2.shape,out3.shape,out4.shape,out5.shape)
 
             #open textfile that has the classes,this will be different for each model, so create another variable
             # to do: make this in alphabetic order and figure out how to loop through the images in this same order
                 # (needs to be able to be the same on any computer, not just dependent of my own folder order)
-            with open('answer_key.txt') as g:
-                answers=[line.strip() for line in g.readlines()]
 
             with open('imagenet_classes.txt') as f:
                 labels=[line.strip() for line in f.readlines()]
@@ -108,7 +107,7 @@ def zoom_game(my_directory):
             percentage4 = torch.nn.functional.softmax(out4,dim=1)[0]*100
             _ , index5 = torch.max(out5,1)
             percentage5 = torch.nn.functional.softmax(out5,dim=1)[0]*100
-            #how to make this work for multiple sets? because index is built in so we can't make it change each time
+    
             #print the label that the model decides, and the percentage certainty.
             print(labels[index1[0]],percentage1[index1[0]].item())
             print(labels[index2[0]],percentage2[index2[0]].item())
@@ -118,9 +117,9 @@ def zoom_game(my_directory):
             
             # create a vector with all the answers from all the models
             all_index = [labels[index1[0]], labels[index2[0]], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
-            #open the answerkey for our ten images (note: this is asuming that the order in our folder will stay the same and therefore the images will be looped over exaclty as specified in key)
-            #with open('answer_key.txt') as g:
-            #    answers=[line.strip() for line in g.readlines()]
+            #open the answerkey for our ten images
+            with open('answer_key.txt') as g:
+                answers=[line.strip() for line in g.readlines()]
 
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
             # score list will store 0 and 1s to say if model matches answer key or not
