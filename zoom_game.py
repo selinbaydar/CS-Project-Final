@@ -1,4 +1,5 @@
-#EJR wrote this code
+#EJR wrote, debugged and tested this code
+#SB reviewed this code and helped brainstorm changes
 
 #define a funciton that takes a folder full of images, then loops through each item in the folder 
 #for each image, normalize it first? or at least normalize the size so that the scale of what we zoom in on is the same
@@ -10,8 +11,7 @@ import os
 import torchvision.models as models
 import torch
 import matplotlib.pyplot as plt
-#import tensorflow??
-from crop_img import crop_me #comment this out if you want to run without cropping
+from crop_img import crop_me
 from PIL import Image
 from torchvision import transforms
 
@@ -20,14 +20,16 @@ def zoom_game(my_directory):
     #double check that this directory exists
     if os.path.exists(my_directory):
         print('path exists')
-    import ipdb;ipdb.set_trace() #setting a breakpoint
-    #loop over each jpg image in directory
-    for filename in os.listdir(my_directory):
-        # initialize an img_counter to keep track of how many times we've gone through this first loop/which image and therefore answer key index we are at
+    # import ipdb;ipdb.set_trace() #setting a breakpoint
+    # loop over each jpg image in directory
+    my_files=os.listdir(my_directory)
+    # sort files in alphabetical order 
+    my_files=sorted(my_files)
+    for filename in my_files:
+        # initialize img_counter to keep track of which image we are at
         img_counter = 0
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
-            image_counter=sorted(image_counter)
             print(image_counter)
         else:
             continue
@@ -42,9 +44,9 @@ def zoom_game(my_directory):
         # now take the image and zoom in on it using a the function crop_me
 
         while counter < 400: # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
-        # to do: make this counter range accurate for limitations of crop_me/how the box dimensions work
             img_croped = crop_me(img,left_box,upper_box,right_box,lower_box)
             
+            # normalize the image
             transform = transforms.Compose([transforms.Resize(256),
                 transforms.CenterCrop(224), 
                 transforms.ToTensor(), 
@@ -55,21 +57,18 @@ def zoom_game(my_directory):
             img_t = transform(img_croped)
 
             #visualize transformed image
-            plt.imshow(img_t[0])
-            plt.show()
-            #create batches, now we can stack images because this turns 3D into 4D
+            #plt.imshow(img_t[0])
+            #plt.show()
+            #create batches, which will also turn the 3D image into a 4D tensor which the models can process
             batch_t = torch.unsqueeze(img_t,0)
             print(batch_t.shape)
 
-            #now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
+            # now have the model (such as alexnet) evaluate the picture. This is where we would also have a user view it?
             # to do: figure out how to integrate GUI starting at this point in the code
             # to do: plan what we want GUI to look at and when 
                 # Geo suggested having the user decide what the image is via a multiple choice question
             
-            #load the pre-trained models 
-            # we will evaluate multiple models: 5 total 
-            #could we list all of them one by one? and in the end we would only display the outcomes of each?
-            # to do: change variables 
+            #load the pre-trained models (5 total)
             alexnet = models.alexnet(pretrained=True)
             squeezenet1_0 = models.squeezenet1_0(pretrained=True)
             resnet18 = models.resnet18(pretrained=True)
@@ -82,7 +81,7 @@ def zoom_game(my_directory):
             resnet18.eval()
             vgg16.eval()
             densenet161.eval()
-
+            #define outputs 
             out1 = alexnet(batch_t)
             out2 = squeezenet1_0(batch_t)
             out3 = resnet18(batch_t)
@@ -90,9 +89,7 @@ def zoom_game(my_directory):
             out5 = densenet161(batch_t)
             print(out1.shape,out2.shape,out3.shape,out4.shape,out5.shape)
 
-            #open textfile that has the classes,this will be different for each model, so create another variable
-            # to do: make this in alphabetic order and figure out how to loop through the images in this same order
-                # (needs to be able to be the same on any computer, not just dependent of my own folder order)
+            #open textfile that has the classes
 
             with open('imagenet_classes.txt') as f:
                 labels=[line.strip() for line in f.readlines()]
@@ -122,8 +119,24 @@ def zoom_game(my_directory):
                 answers=[line.strip() for line in g.readlines()]
 
             #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
-            # score list will store 0 and 1s to say if model matches answer key or not
+            import ipdb;ipdb.set_trace() #setting a breakpointn
+            #initialize empty vectors score lists (SL) that will store the answer for each model as we loop through crop levels.
+            # to do: figure out how to make this a matrix with each photo as a different row
+            # to do: put the initialization of the vector (or matrix) outside of the loop, once I figure out matrix thing
+            alex_sl = ['']
+            squeeze_sl = ['']
+            resnet_sl = ['']
+            vgg_sl=['']
+            dense_sl =['']
+            # individual model answer in vector
+            alex_sl = [alex_sl,[[labels[index1[0]]==answers[img_counter]]]]
+            squeeze_sl = [squeeze_sl,[[labels[index2[0]]==answers[img_counter]]]]
+            resnet_sl = [resnet_sl,[[labels[index3[0]]==answers[img_counter]]]]
+            vgg_sl = [vgg_sl,[[labels[index4[0]]==answers[img_counter]]]]
+            dense_sl = [dense_sl,[[labels[index5[0]]==answers[img_counter]]]]
+            # score list will store True and False to say if model matches answer key or not
             score_list = [model == answers[img_counter] for model in all_index]
+            # can use find function to find final vector for when correct answer started. 
             # use all function, tells us if every item is true (1)
             if all(score_list) == True:
                 break
@@ -138,7 +151,8 @@ def zoom_game(my_directory):
 
         # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
         img_counter = img_counter+1
-                # three outputs: 1. correct yes or no, 2. crop size, 3. reaction time
-                # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
-    # to do: add return 
+
+    return(score_list) # to do: add other outputs here, maybe individual score lists rather than overall? 
 zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
+
+# to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
