@@ -1,10 +1,10 @@
-0, burger
-1, dog
+0, cheeseburger
+1, Labrador_retriever
 2, jeep
 3, laptop
 4, mushroom
 5, pillow
-6, sunglasses
+6, sunglass
 7, tiger
-8, turtle
-9, waffle
+8, mud_turtle
+9, waffle_iron

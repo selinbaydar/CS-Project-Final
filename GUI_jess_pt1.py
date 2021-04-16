@@ -1,22 +1,43 @@
 #focus on applying GUI with checkmarks for users - possible inclusion to our GUI as options 
 #written by jessica
 
+# import all required packages
 #format: w = Checkbutton ( master, option, ... )
 from tkinter import *
-
+from PIL import Image, ImageTk
+from torchvision import transforms
 import tkinter
-
+# import ipdb;ipdb.set_trace() #setting a breakpoint
 #modified tutorial code for this porject 
-#initialize 
-top = Tk()
+
+#initialize window
+top = tkinter.Tk()
+#define window size
+top.geometry("400x400+400+400")
+# what is top??
 #creates text at the top of GUI, would use to give instructions.
 text = Text(top)
+# to do: maybe change to labels
 text.insert(INSERT, "Please identify the image. ")
 text.insert(END, "Select only one option. ")
 text.pack()
-// TODO # action item - make the text portion smaller when displayed, right now takes up half the window
+# to do: action item - make the text portion smaller when displayed, right now takes up half the window
 
-//TODO # do we want to include the image in the GUI - if so...https://www.activestate.com/resources/quick-reads/how-to-add-images-in-tkinter/
+# Create a photoimage object of the image in the path
+image1 = Image.open("burger.jpg")
+
+#transform image so that it is small enough to fit on the display
+transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
+image1 = transform(image1)
+
+test = ImageTk.PhotoImage(image1)
+label1 = tkinter.Label(image=test)
+label1.image = test
+
+# Position image
+label1.place(x = 200, y= 40)
+top.mainloop()
+# to do:do we want to include the image in the GUI - if so...https://www.activestate.com/resources/quick-reads/how-to-add-images-in-tkinter/
 
 
 #how many variables/options want to have 
