@@ -1,10 +1,10 @@
-cheeseburger
-labrador_retriever
-jeep
-laptop
-mushroom
-pillow
-sunglass
-tiger
-mud_turtle
-waffle_iron
+933, cheeseburger
+208, Labrador_retriever
+609, jeep
+620, laptop
+947, mushroom
+721, pillow
+836, sunglass
+292, tiger
+35, mud_turtle
+891, waffle_iron

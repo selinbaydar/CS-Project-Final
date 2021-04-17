@@ -37,6 +37,27 @@ def zoom_game(my_directory):
     for filename in my_files:
         # initialize img_counter to keep track of which image we are at
         img_counter = 0
+        # to do: make this more efficient
+        if img_counter == 0:
+            print('Picture of a cheeseburger')
+        if img_counter == 1:
+            print('Picture of a Labrador Retriever')
+        if img_counter == 2:
+            print('Picture of a Jeep')
+        if img_counter == 3:
+            print('Picture of a laptop')
+        if img_counter == 4:
+            print('Picture of a mushroom')
+        if img_counter == 5:
+            print('Picture of a pillow')
+        if img_counter == 6:
+            print('Picture of sunglasses')
+        if img_counter == 7:
+            print('Picture of a tiger')
+        if img_counter == 8:
+            print('Picture of a mud turtle')
+        if img_counter == 9:
+            print('Picture of a waffle iron')
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
             print(image_counter)
@@ -51,8 +72,12 @@ def zoom_game(my_directory):
         lower_box=210
         counter=max(left_box,upper_box,right_box,lower_box)
         # now take the image and zoom in on it using a the function crop_me
-
+        crop_level = 1
         while counter < 400: # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
+            #maybe add message about what pic we are at here instead of earlier
+            my_msg = 'We are at crop level -'
+            crop_msg= str(crop_level)
+            print(my_msg+crop_msg)
             img_croped = crop_me(img,left_box,upper_box,right_box,lower_box)
             
             # normalize the image
@@ -120,6 +145,8 @@ def zoom_game(my_directory):
             print(labels[index3[0]],percentage3[index3[0]].item())
             print(labels[index4[0]],percentage4[index4[0]].item())
             print(labels[index5[0]],percentage5[index5[0]].item())
+
+            #import ipdb;ipdb.set_trace() #setting a breakpoint
             
             # create a vector with all the answers from all the models
             all_index = [labels[index1[0]], labels[index2[0]], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
@@ -149,6 +176,7 @@ def zoom_game(my_directory):
             right_box = right_box + 10
             lower_box = lower_box + 10
             counter=max(left_box,upper_box,right_box,lower_box)
+            crop_level = crop_level+1
 
         # to do: define output that says current crop and if it was correct for each model. 
 
