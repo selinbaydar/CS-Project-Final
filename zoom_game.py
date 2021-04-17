@@ -37,33 +37,14 @@ def zoom_game(my_directory):
     for filename in my_files:
         # initialize img_counter to keep track of which image we are at
         img_counter = 0
-        # to do: make this more efficient
-        if img_counter == 0:
-            print('Picture of a cheeseburger')
-        if img_counter == 1:
-            print('Picture of a Labrador Retriever')
-        if img_counter == 2:
-            print('Picture of a Jeep')
-        if img_counter == 3:
-            print('Picture of a laptop')
-        if img_counter == 4:
-            print('Picture of a mushroom')
-        if img_counter == 5:
-            print('Picture of a pillow')
-        if img_counter == 6:
-            print('Picture of sunglasses')
-        if img_counter == 7:
-            print('Picture of a tiger')
-        if img_counter == 8:
-            print('Picture of a mud turtle')
-        if img_counter == 9:
-            print('Picture of a waffle iron')
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
             print(image_counter)
         else:
             continue
-        
+        #open the answerkey for our ten images
+        with open('answer_key.txt') as g:
+            answers=[line.strip() for line in g.readlines()]
         #load image
         img = Image.open(image_counter)
         left_box=190
@@ -75,9 +56,11 @@ def zoom_game(my_directory):
         crop_level = 1
         while counter < 400: # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
             #maybe add message about what pic we are at here instead of earlier
-            my_msg = 'We are at crop level -'
+            my_msg = 'We are at crop level :'
+            my_msg2 = 'of image:'
+            my_msg3 = str(answers[img_counter])
             crop_msg= str(crop_level)
-            print(my_msg+crop_msg)
+            print(my_msg+crop_msg+ ' ' +my_msg2+ ' ' + my_msg3)
             img_croped = crop_me(img,left_box,upper_box,right_box,lower_box)
             
             # normalize the image
@@ -145,14 +128,11 @@ def zoom_game(my_directory):
             print(labels[index3[0]],percentage3[index3[0]].item())
             print(labels[index4[0]],percentage4[index4[0]].item())
             print(labels[index5[0]],percentage5[index5[0]].item())
-
+            import ipdb;ipdb.set_trace() #setting a breakpoint
             #import ipdb;ipdb.set_trace() #setting a breakpoint
             
             # create a vector with all the answers from all the models
             all_index = [labels[index1[0]], labels[index2[0]], labels[index3[0]], labels[index4[0]], labels[index5[0]]]
-            #open the answerkey for our ten images
-            with open('answer_key.txt') as g:
-                answers=[line.strip() for line in g.readlines()]
 
             #import ipdb;ipdb.set_trace() #setting a breakpointn
             # img_counter is keeping track of what image we are on, so each row should correspond
@@ -184,7 +164,7 @@ def zoom_game(my_directory):
         img_counter = img_counter+1
     #reshape the answer for each model so that each row corresponds to one model 
     # img_counter will correspond to the row
-    import ipdb;ipdb.set_trace() #setting a breakpoint
+    
     alex_sl = np.reshape(alex_sl,[10,19]) # should be 10,19
     squeeze_sl = np.reshape(squeeze_sl,[10,19]) # should be 10,19
     resnet_sl = np.reshape(resnet_sl,[10,19]) # should be 10,19
