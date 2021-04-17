@@ -28,7 +28,7 @@ def zoom_game(my_directory):
     # sort files in alphabetical order 
     my_files=sorted(my_files)
 
-    #initialize vectors 
+    #initialize vectors where the answers to each model will be stored
     alex_sl = []
     squeeze_sl = []
     resnet_sl = []
@@ -127,44 +127,42 @@ def zoom_game(my_directory):
             with open('answer_key.txt') as g:
                 answers=[line.strip() for line in g.readlines()]
 
-            #compare with what user inputs, create conditional statements that will decide if we go through the crop loop again
             #import ipdb;ipdb.set_trace() #setting a breakpointn
-            #initialize empty vectors score lists (SL) that will store the answer for each model as we loop through crop levels.
-            # to do: figure out how to make this a matrix with each photo as a different row
-            # to do: put the initialization of the vector (or matrix) outside of the loop, once I figure out matrix thing
             # img_counter is keeping track of what image we are on, so each row should correspond
             # individual model answer in vector
-            alex_sl = [alex_sl+[[labels[index1[0]]==answers[img_counter]]]]
-            squeeze_sl = [squeeze_sl+[[labels[index2[0]]==answers[img_counter]]]]
-            resnet_sl = [resnet_sl+[[labels[index3[0]]==answers[img_counter]]]]
-            vgg_sl = [vgg_sl+[[labels[index4[0]]==answers[img_counter]]]]
-            dense_sl = [dense_sl+[[labels[index5[0]]==answers[img_counter]]]]
+            alex_sl = alex_sl + [labels[index1[0]]==answers[img_counter]]
+            squeeze_sl = squeeze_sl + [labels[index2[0]]==answers[img_counter]]
+            resnet_sl = resnet_sl + [labels[index3[0]]==answers[img_counter]]
+            vgg_sl = vgg_sl + [labels[index4[0]]==answers[img_counter]]
+            dense_sl = dense_sl + [labels[index5[0]]==answers[img_counter]]
+            print(alex_sl)
+            print(squeeze_sl)
+            print(resnet_sl)
+            print(vgg_sl)
+            print(dense_sl)
             # score list will store True and False to say if model matches answer key or not
             score_list = [model == answers[img_counter] for model in all_index]
-            # can use find function to find final vector for when correct answer started. 
-            # use all function, tells us if every item is true (1)
-            if all(score_list) == True:
-                break
-            else:#if alexnet is not correct, zoom out by changing box sizes with the counter
-                left_box = left_box - 100
-                upper_box = upper_box - 100
-                right_box = right_box + 100
-                lower_box = lower_box + 100
-                counter=max(left_box,upper_box,right_box,lower_box)
+
+            # repeat loop regardless of if answers are all correct or not
+            left_box = left_box - 10
+            upper_box = upper_box - 10
+            right_box = right_box + 10
+            lower_box = lower_box + 10
+            counter=max(left_box,upper_box,right_box,lower_box)
 
         # to do: define output that says current crop and if it was correct for each model. 
 
         # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
         img_counter = img_counter+1
     #reshape the answer for each model so that each row corresponds to one model 
+    # img_counter will correspond to the row
     import ipdb;ipdb.set_trace() #setting a breakpoint
-    alex_sl = np.reshape(alex_sl,[10,2]) # should be 10,20
-    squeeze_sl = np.reshape(squeeze_sl,[10,2]) # should be 10,20
-    resnet_sl = np.reshape(resnet_sl,[10,2]) # should be 10,20
-    vgg_sl= np.reshape(vgg_sl,[10,2]) # should be 10,20
-    dense_sl = np.reshape(dense_sl,[10,2]) # should be 10,20
+    alex_sl = np.reshape(alex_sl,[10,19]) # should be 10,19
+    squeeze_sl = np.reshape(squeeze_sl,[10,19]) # should be 10,19
+    resnet_sl = np.reshape(resnet_sl,[10,19]) # should be 10,19
+    vgg_sl= np.reshape(vgg_sl,[10,19]) # should be 10,19
+    dense_sl = np.reshape(dense_sl,[10,19]) # should be 10,19
 
-    # HELP HERE
     return(score_list) # to do: add other outputs here, maybe individual score lists rather than overall? 
 zoom_game('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
 
