@@ -134,17 +134,45 @@ CheckVar4 = IntVar()
 
 #define visual aspects of it (master, option....)
 
+with open('MC_options.txt') as f: #opens the textfile with the MC option names
+    labels=[line.strip() for line in f.readlines()]
 
-C1 = Checkbutton(top, text = "option 1", variable = CheckVar1, \
+option1 = labels[0]
+option2 = labels[1]
+option3 = labels[2]
+option4 = labels[3]
+
+counter_option = 0 #initializing
+
+#inside image loop but outside the crop loop
+counter_option = counter_option + 4 #this will be at the end of the loop once the crop loop is done
+counter1 = counter_option
+counter2 = counter_option +1
+counter3 = counter_option +2
+counter4 = counter_option +3
+
+for counter_option in range(0,16):
+    option1 = labels[counter1]
+    option2 = labels[counter2]
+    option3 = labels[counter3]
+    option4 = labels[counter4]
+
+    #convert the options into strings
+    option1 = str(option1)
+    option2 = str(option2)
+    option3 = str(option3)
+    option4 = str(option4)
+
+C1 = Checkbutton(top, text = option1, variable = CheckVar1, \
                  onvalue = 1, offvalue = 0, height=5, \
                  width = 10,)
-C2 = Checkbutton(top, text = "option 2", variable = CheckVar2, \
+C2 = Checkbutton(top, text = option2, variable = CheckVar2, \
                  onvalue = 1, offvalue = 0, height=5, \
                  width = 10)
-C3 = Checkbutton(top, text = "option 3", variable = CheckVar3, \
+C3 = Checkbutton(top, text = option3, variable = CheckVar3, \
                  onvalue = 1, offvalue = 0, height=5, \
                  width = 10)
-C4 = Checkbutton(top, text = "option 4", variable = CheckVar4, \
+C4 = Checkbutton(top, text = option4, variable = CheckVar4, \
                  onvalue = 1, offvalue = 0, height=5, \
                  width = 10)
 C1.pack()
