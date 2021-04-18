@@ -55,12 +55,12 @@ def zoom_game(my_directory):
         # now take the image and zoom in on it using a the function crop_me
         crop_level = 1
         while counter < 400: # we don't want the cropped dimensions to exceed the size of the photo, which is normalized to 400x400
-            #maybe add message about what pic we are at here instead of earlier
-            my_msg = 'We are at crop level :'
+            #display message to state crop level and which image we are looking at so that user can follow along with terminal window
+            my_msg = 'We are at crop level:'
             my_msg2 = 'of image:'
-            my_msg3 = str(answers[img_counter])
+            my_msg3 = answers[img_counter].split(',')
             crop_msg= str(crop_level)
-            print(my_msg+crop_msg+ ' ' +my_msg2+ ' ' + my_msg3)
+            print(my_msg+crop_msg+ ' ' +my_msg2+ ' ' + my_msg3[1])
             img_croped = crop_me(img,left_box,upper_box,right_box,lower_box)
             
             # normalize the image
