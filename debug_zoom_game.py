@@ -147,8 +147,8 @@ while counter < 400: # we don't want the cropped dimensions to exceed the size o
 #reshape the answer for each model so that each row corresponds to one model 
 # img_counter will correspond to the row
 
-alex_sl = np.reshape(alex_sl,[10,19]) # should be 10,19
-squeeze_sl = np.reshape(squeeze_sl,[10,19]) # should be 10,19
-resnet_sl = np.reshape(resnet_sl,[10,19]) # should be 10,19
-vgg_sl= np.reshape(vgg_sl,[10,19]) # should be 10,19
-dense_sl = np.reshape(dense_sl,[10,19]) # should be 10,19
+alex_sl = np.reshape(alex_sl,[1,19]) # should be 10,19
+squeeze_sl = np.reshape(squeeze_sl,[1,19]) # should be 10,19
+resnet_sl = np.reshape(resnet_sl,[1,19]) # should be 10,19
+vgg_sl= np.reshape(vgg_sl,[1,19]) # should be 10,19
+dense_sl = np.reshape(dense_sl,[1,19]) # should be 10,19

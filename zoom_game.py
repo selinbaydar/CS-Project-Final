@@ -34,9 +34,9 @@ def zoom_game(my_directory):
     resnet_sl = []
     vgg_sl=[]
     dense_sl =[]
+    img_counter = 0
     for filename in my_files:
         # initialize img_counter to keep track of which image we are at
-        img_counter = 0
         if filename.endswith(".jpg"):
             image_counter=os.path.join(my_directory, filename)
             print(image_counter)
@@ -128,7 +128,7 @@ def zoom_game(my_directory):
             print(labels[index3[0]],percentage3[index3[0]].item())
             print(labels[index4[0]],percentage4[index4[0]].item())
             print(labels[index5[0]],percentage5[index5[0]].item())
-            import ipdb;ipdb.set_trace() #setting a breakpoint
+            #import ipdb;ipdb.set_trace() #setting a breakpoint
             #import ipdb;ipdb.set_trace() #setting a breakpoint
             
             # create a vector with all the answers from all the models
