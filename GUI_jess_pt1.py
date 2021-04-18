@@ -1,5 +1,6 @@
 #focus on applying GUI with checkmarks for users - possible inclusion to our GUI as options 
 #written by jessica
+#debug by selin and jay
 
 # import all required packages
 #format: w = Checkbutton ( master, option, ... )
@@ -13,7 +14,7 @@ import tkinter
 #initialize window
 top = tkinter.Tk()
 #define window size
-top.geometry("400x400+400+400")
+top.geometry("1000x1000+1000+1000")
 # what is top??
 #creates text at the top of GUI, would use to give instructions.
 text = Text(top)
@@ -31,12 +32,12 @@ transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224
 image1 = transform(image1)
 
 test = ImageTk.PhotoImage(image1)
-label1 = tkinter.Label(image=test)
+label1 = tkinter.Label(top,image=test)
 label1.image = test
 
 # Position image
-label1.place(x = 200, y= 40)
-top.mainloop()
+label1.place(x = 400, y= 40)
+# top.mainloop()
 # to do:do we want to include the image in the GUI - if so...https://www.activestate.com/resources/quick-reads/how-to-add-images-in-tkinter/
 
 
@@ -51,16 +52,16 @@ CheckVar4 = IntVar()
 
 C1 = Checkbutton(top, text = "option 1", variable = CheckVar1, \
                  onvalue = 1, offvalue = 0, height=5, \
-                 width = 20,)
+                 width = 10,)
 C2 = Checkbutton(top, text = "option 2", variable = CheckVar2, \
                  onvalue = 1, offvalue = 0, height=5, \
-                 width = 20)
+                 width = 10)
 C3 = Checkbutton(top, text = "option 3", variable = CheckVar3, \
                  onvalue = 1, offvalue = 0, height=5, \
-                 width = 20)
+                 width = 10)
 C4 = Checkbutton(top, text = "option 4", variable = CheckVar4, \
                  onvalue = 1, offvalue = 0, height=5, \
-                 width = 20)
+                 width = 10)
 C1.pack()
 C2.pack()
 C3.pack()
