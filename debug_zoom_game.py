@@ -8,14 +8,14 @@ from crop_img import crop_me
 from PIL import Image
 from torchvision import transforms
 
-img_counter = 1
+img_counter = 5
 #initialize vectors where the answers to each model will be stored
 alex_sl = []
 squeeze_sl = []
 resnet_sl = []
 vgg_sl=[]
 dense_sl =[]
-my_directory = "dog.jpg"
+my_directory = "waffle.jpg"
     #open the answerkey for our ten images
 with open('answer_key.txt') as g:
     answers=[line.strip() for line in g.readlines()]
