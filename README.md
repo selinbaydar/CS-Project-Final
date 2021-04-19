@@ -6,7 +6,8 @@
 This repository uses pytorch image recognition in python to examine meachine learning. Specifically, we compared 5 network models in a image recognition task. Images were selected by us and then zoomed in at 15 different levels. The goal was to examine the performance differences for the models by tracking when the models accurately identify the image. The second part of this project implements a GUI and instructs users to identify the image, starting with the most zoomed in image, via a multiple-choice option. 
 # possible 3rd part of comparing data? 
 
-This project is coded in python, we recommend using VisualStudioCode and a conda based Python interpreter such as: Python 3.8.5 64-bit (conda). Before implementation, please make sure you have updated versions of pytorch and tkinter installed. 
+This project is coded in python, we recommend using VisualStudioCode and a conda based Python interpreter such as: Python 3.8.5 64-bit (conda). Before implementation, please make sure you have updated versions of pytorch and tkinter installed. In addition, matplotlib will also need to be installed (conda install -c conda-forge matplotlib
+ for OS in terminal)
 
 Download the repository that will include the code, images, answerkeys, etc. The only changes necessary will be to define your current local path in zoom_game.py and GUI_mainscript.py. 
 
