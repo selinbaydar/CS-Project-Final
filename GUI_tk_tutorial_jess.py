@@ -1,4 +1,4 @@
-#jess - tktutorial in depth for GUI 
+#written by jess - tktutorial in depth for GUI 
 #generalt code goes like this: - creates box
     #import tkinter 
     #top = tkinter.Tk()
