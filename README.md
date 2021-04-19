@@ -1,6 +1,5 @@
 # CLPS0950-Project-Final
-# EJR pushed this to github!
-# written by JO
+
 Before starting, please make sure you have pytorch and tkinter installed. 
 This project is coded in python, we recommend using VisualStudioCode and a conda based Python interpreter such as: Python 3.8.5 64-bit (conda) 
 
