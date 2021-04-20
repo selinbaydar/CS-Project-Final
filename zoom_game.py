@@ -2,10 +2,7 @@
 #SB reviewed this code and helped brainstorm changes
 
 # settings CV for EJR: python.pythonPath": "C:\\Users\\emmar\\Anaconda3\\envs\\CLPS0950\\python.exe
-#define a funciton that takes a folder full of images, then loops through each item in the folder 
-#for each image, normalize it first? or at least normalize the size so that the scale of what we zoom in on is the same
-#zoom in on the center of the image, feed image to alexnet (or other model) and if alexnet can give the correct answer, the  size of the zoomed in image is the output
-#if alexnet cannot give the correct answer, zoom out slightly, repeat until alexnet can identify what the image is
+#define a funciton that takes a folder full of images, then loops through each item in the folder
 
 #import all required packages, make sure they are previously installed in workspace
 import os
@@ -172,6 +169,6 @@ def zoom_me(my_directory):
     dense_sl = np.reshape(dense_sl,[10,19]) # should be 10,19
 
     return(score_list) # to do: add other outputs here, maybe individual score lists rather than overall? 
-#zoom_me('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
+zoom_me('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
 
 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.

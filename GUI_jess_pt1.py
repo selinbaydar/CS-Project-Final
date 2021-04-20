@@ -1,14 +1,9 @@
-#focus on applying GUI with checkmarks for users - possible inclusion to our GUI as options 
-#written by jessica
-#debug by selin and jay
-
 # import all required packages
-#format: w = Checkbutton ( master, option, ... )
+
 from tkinter import *
 from PIL import Image, ImageTk
 from torchvision import transforms
 import tkinter as tk 
-
 
 def onSelect():
     print(var1.get())
