@@ -160,15 +160,12 @@ def zoom_me(my_directory):
         # increment img_counter, which keeps track of which photo and therefore which answer key index we are at
         img_counter = img_counter+1
     #reshape the answer for each model so that each row corresponds to one model 
-    # img_counter will correspond to the row
     
-    alex_sl = np.reshape(alex_sl,[10,19]) # should be 10,19
-    squeeze_sl = np.reshape(squeeze_sl,[10,19]) # should be 10,19
-    resnet_sl = np.reshape(resnet_sl,[10,19]) # should be 10,19
-    vgg_sl= np.reshape(vgg_sl,[10,19]) # should be 10,19
-    dense_sl = np.reshape(dense_sl,[10,19]) # should be 10,19
+    alex_sl = np.reshape(alex_sl,[10,19])
+    squeeze_sl = np.reshape(squeeze_sl,[10,19])
+    resnet_sl = np.reshape(resnet_sl,[10,19])
+    vgg_sl= np.reshape(vgg_sl,[10,19])
+    dense_sl = np.reshape(dense_sl,[10,19])
 
-    return(score_list) # to do: add other outputs here, maybe individual score lists rather than overall? 
-zoom_me('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
-
-# to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.
+    return(alex_sl,squeeze_sl,resnet_sl,vgg_sl,dense_sl)
+zoom_me('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final')
