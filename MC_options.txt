@@ -1,12 +1,12 @@
-cheeseburger
-light_bulb
-mouth
-garden_salad
-sand
-white_blanket
+cheeseburger   0
+light_bulb     1
+mouth          2
+garden_salad    3
+sand    4
+white_blanket    5
 golden_retriever
 fur_rug
-jeep
+jeep  8
 iphone
 train
 window
