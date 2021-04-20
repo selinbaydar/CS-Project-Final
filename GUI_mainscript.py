@@ -45,6 +45,44 @@ option1 = labels[0]
 option2 = labels[1]
 option3 = labels[2]
 option4 = labels[3]
+
+#  #inside image loop but outside the crop loop
+# counter_option = counter_option + 4 #this will be at the end of the loop once the crop loop is done
+# counter1 = counter_option
+# counter2 = counter_option +1
+# counter3 = counter_option +2
+# counter4 = counter_option +3
+
+for counter_option in range(0,16):
+    option1 = labels[counter1]
+    option2 = labels[counter2]
+    option3 = labels[counter3]
+    option4 = labels[counter4]
+
+    #convert the options into strings
+    option1 = str(option1)
+    option2 = str(option2)
+    option3 = str(option3)
+    option4 = str(option4)
+
+C1 = Checkbutton(top, text = option1, variable = CheckVar1, \
+                onvalue = 1, offvalue = 0, height=5, \
+                width = 10,)
+C2 = Checkbutton(top, text = option2, variable = CheckVar2, \
+                onvalue = 1, offvalue = 0, height=5, \
+                width = 10)
+C3 = Checkbutton(top, text = option3, variable = CheckVar3, \
+                onvalue = 1, offvalue = 0, height=5, \
+                width = 10)
+C4 = Checkbutton(top, text = option4, variable = CheckVar4, \
+                onvalue = 1, offvalue = 0, height=5, \
+                width = 10)
+C1.pack()
+C2.pack()
+C3.pack()
+C4.pack()
+
+top.mainloop()
 # to do: action item - make the text portion smaller when displayed, right now takes up half the window
 # Position image
 label1.place(x = 400, y= 40)
@@ -101,43 +139,7 @@ def user_interface(my_directory):
             label1 = tkinter.Label(top,image=name)
             label1.image = name           
 
-            #inside image loop but outside the crop loop
-            counter_option = counter_option + 4 #this will be at the end of the loop once the crop loop is done
-            counter1 = counter_option
-            counter2 = counter_option +1
-            counter3 = counter_option +2
-            counter4 = counter_option +3
-
-        for counter_option in range(0,16):
-            option1 = labels[counter1]
-            option2 = labels[counter2]
-            option3 = labels[counter3]
-            option4 = labels[counter4]
-
-            #convert the options into strings
-            option1 = str(option1)
-            option2 = str(option2)
-            option3 = str(option3)
-            option4 = str(option4)
-
-        C1 = Checkbutton(top, text = option1, variable = CheckVar1, \
-                        onvalue = 1, offvalue = 0, height=5, \
-                        width = 10,)
-        C2 = Checkbutton(top, text = option2, variable = CheckVar2, \
-                        onvalue = 1, offvalue = 0, height=5, \
-                        width = 10)
-        C3 = Checkbutton(top, text = option3, variable = CheckVar3, \
-                        onvalue = 1, offvalue = 0, height=5, \
-                        width = 10)
-        C4 = Checkbutton(top, text = option4, variable = CheckVar4, \
-                        onvalue = 1, offvalue = 0, height=5, \
-                        width = 10)
-        C1.pack()
-        C2.pack()
-        C3.pack()
-        C4.pack()
-
-        top.mainloop()
+           
 
             ### INSERT GUI code here to have user generate outputs
 
