@@ -18,12 +18,23 @@ def onSelect():
     T2.set(option2)
     T3.set(option3)
     T4.set(option4)
-
-    im = Image.open("dog.jpg")#variable
+    my_img = "dog.jpg"
+    left_box=190
+    upper_box=190
+    right_box=210
+    lower_box=210
+    im = Image.open(my_img)#variable
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
-
+    # if the answer is wrong for a certain image, change variables:             
+    #         left_box = left_box - 10
+    #         upper_box = upper_box - 10
+    #         right_box = right_box + 10
+    #         lower_box = lower_box + 10 
+    #         zoom_level = zoom_level +1
+    # use my_img=crop_me("dog.jpg",left_box,upper_box,right_box,lower_box)
+    # user_ans[image_counter,zoom_level] = False
 
 # #track of image num 1-10
 image_counter = 0 
@@ -54,10 +65,8 @@ def check_ans(image_counter):
     if ....get() == answer_opt_type[image_counter]:
         #if string of option selected = answer_opt_type of image 
         image_counter = image_counter + 1 #moves image_counter to upload next question
-        user_ans[image_counter,zoom_level] = True
     else:
         # change crop size
-        user_ans[image_counter,zoom_level] = False
 
 # answer_opt_type is a txt file with the correct answers
 with open('answer_opt_type.txt') as g:
