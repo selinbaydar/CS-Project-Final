@@ -41,6 +41,7 @@ CheckVar4 = IntVar()
 #initialize labels, to be used for button labels later
 with open('MC_options.txt') as f: #opens the textfile with the MC option names
     labels=[line.strip() for line in f.readlines()]
+    
 option1 = labels[0]
 option2 = labels[1]
 option3 = labels[2]
