@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from torchvision import transforms
 from tkinter import messagebox as mb
 import tkinter as tk 
+import numpy as np
 
 def onSelect():
 
@@ -25,11 +26,11 @@ def onSelect():
 
 
 # #track of image num 1-10
-iamge_counter = 0 
+image_counter = 0 
 # #track zoom level 1-15
 zoom_level = 0
-# #initialize matrix of user answer
-user_ans = []
+# #initialize matrix of user answers all listed as TRUE, which will later be replaced with FALSE if user is wrong
+user_ans = np.ones(shape = [10,19])
 
 with open('MC_options.txt') as f: #opens the textfile with the MC option names
     labels=[line.strip() for line in f.readlines()]
@@ -49,11 +50,15 @@ def check_ans(image_counter):
     if ....get() == answer_opt_type[image_counter]:
         #reassigned onvalues for each buttion to 1,2,3,4 -> can then compare to answer_opt_type to see if correct
         #think this works only with radiobutton?
-        image_counter += 1 #moves image_counter to upload next question
-        return True 
+        image_counter = image_counter + 1 #moves image_counter to upload next question
+        user_ans[image_counter,zoom_level] = True
+    else:
+        # change crop size
+        user_ans[image_counter,zoom_level] = False
 
-with open('answer_opt_type') as f:
-    ...
+# answer_opt_type is a txt file with the correct answers
+with open('answer_opt_type.txt') as g:
+    answer_opt_type = [line.strip() for line in g.readlines()]
 
 
 

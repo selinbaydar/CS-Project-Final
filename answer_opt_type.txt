@@ -1,0 +1,10 @@
+cheeseburger
+labrador_retriever
+jeep
+laptop
+mushroom
+pillow
+sunglasses
+tiger
+mud_turtle
+waffle_iron
