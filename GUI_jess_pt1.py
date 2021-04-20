@@ -34,22 +34,25 @@ user_ans = np.ones(shape = [10,19])
 
 with open('MC_options.txt') as f: #opens the textfile with the MC option names
     labels=[line.strip() for line in f.readlines()]
-    option1 = str(labels[0])
+    option1 = str(labels[4])
     #option1 = str(labels[image_counter+4])
     #print(option1) - prints out first line 
-    option2 = str(labels[1])
+    option2 = str(labels[5])
     #option2 = str(labels[image_counter+3])
-    option3 = str(labels[2])
+    option3 = str(labels[6])
     #option3 = str(labels[image_counter+2])
-    option4 = str(labels[3])
+    option4 = str(labels[7])
     #option4 = str(labels[image_counter+1])
     #need to make it so labels[x] turns into new one each time image_counter increases 
 
 def check_ans(image_counter):
     #image counter still not working but when it does->
+    #need something beforehand that goes through T1-T4 and outputs the string only if it was selected: 
+    #if var 4==1: 
+    #if T4 == answer_opt_type[image_counter]
+    #mayble loop though them 
     if ....get() == answer_opt_type[image_counter]:
-        #reassigned onvalues for each buttion to 1,2,3,4 -> can then compare to answer_opt_type to see if correct
-        #think this works only with radiobutton?
+        #if string of option selected = answer_opt_type of image 
         image_counter = image_counter + 1 #moves image_counter to upload next question
         user_ans[image_counter,zoom_level] = True
     else:
@@ -83,8 +86,6 @@ var2 = tk.IntVar()
 var3 = tk.IntVar()
 var4 = tk.IntVar()
 
-
-#maybe change to Radiobutton- where user can only select one button, loop written in quiz.py on how to implement and change variables
 T1 = StringVar()
 T2 = StringVar()
 T3 = StringVar()
@@ -94,13 +95,13 @@ C1 = tk.Checkbutton(top, textvariable = T1, variable = var1, \
                  onvalue = 1, offvalue = 0, height=5, \
                  width = 10,)
 C2 = tk.Checkbutton(top, textvariable = T2, variable = var2, \
-                 onvalue = 2, offvalue = 0, height=5, \
+                 onvalue = 1, offvalue = 0, height=5, \
                  width = 10)
 C3 = tk.Checkbutton(top, textvariable = T3, variable = var3, \
-                 onvalue = 3, offvalue = 0, height=5, \
+                 onvalue = 1, offvalue = 0, height=5, \
                  width = 10)
 C4 = tk.Checkbutton(top, textvariable = T4, variable = var4, \
-                 onvalue = 4, offvalue = 0, height=5, \
+                 onvalue = 1, offvalue = 0, height=5, \
                  width = 10)
 C1.pack()
 C2.pack()
