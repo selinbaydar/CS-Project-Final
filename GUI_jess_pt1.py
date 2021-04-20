@@ -23,7 +23,10 @@ def onSelect():
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
+    #if correct .. escape to next image 
+    # else
 
+#
 
 # #track of image num 1-10
 image_counter = 0 
