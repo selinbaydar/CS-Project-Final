@@ -18,7 +18,7 @@ from PIL import Image
 from torchvision import transforms
 
 #define a function that has an input called my_directory
-def zoom_game(my_directory):
+def zoom_me(my_directory):
     #double check that this directory exists
     if os.path.exists(my_directory):
         print('path exists')
@@ -172,6 +172,6 @@ def zoom_game(my_directory):
     dense_sl = np.reshape(dense_sl,[10,19]) # should be 10,19
 
     return(score_list) # to do: add other outputs here, maybe individual score lists rather than overall? 
-zoom_game('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
+#zoom_me('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
 
 # to do: if we have time, extend the results by making graphs etc to display how the user performs in comparision to the computer.

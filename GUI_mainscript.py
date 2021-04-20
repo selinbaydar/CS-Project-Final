@@ -14,25 +14,42 @@ import tkinter
 import os
 import numpy as np
 from crop_img import crop_me
-from zoom_game import zoom_game
+from zoom_game import zoom_me
 
 #modified tutorial code for this porject 
 #define a function that has an input called my_directory
+
+#open the GUI window
+top = tkinter.Tk()
+#define window size
+top.geometry("1000x1000+1000+1000")
+#creates text at the top of GUI, would use to give instructions.
+text = Text(top)
+# to do: maybe change to labels
+text.insert(INSERT, "Please identify the image. ")
+text.insert(END, "Select only one option. ")
+text.pack()
+
+#how many variables/options want to have 
+CheckVar1 = IntVar()
+CheckVar2 = IntVar()
+CheckVar3 = IntVar()
+CheckVar4 = IntVar()
+
+#define visual aspects of it (master, option....)
+# put this outside loop
+#initialize labels, to be used for button labels later
+with open('MC_options.txt') as f: #opens the textfile with the MC option names
+    labels=[line.strip() for line in f.readlines()]
+option1 = labels[0]
+option2 = labels[1]
+option3 = labels[2]
+option4 = labels[3]
+# to do: action item - make the text portion smaller when displayed, right now takes up half the window
+# Position image
+label1.place(x = 400, y= 40)
 my_directory = 'C:/Users/emmar/Documents/CLPS0950/CS-Project-Final'
 def user_interface(my_directory):
-    import ipdb;ipdb.set_trace() #setting a breakpoint
-
-    #open the GUI window
-    top = tkinter.Tk()
-    #define window size
-    top.geometry("1000x1000+1000+1000")
-    #creates text at the top of GUI, would use to give instructions.
-    text = Text(top)
-    # to do: maybe change to labels
-    text.insert(INSERT, "Please identify the image. ")
-    text.insert(END, "Select only one option. ")
-    text.pack()
-    # to do: action item - make the text portion smaller when displayed, right now takes up half the window
     #double check that this directory exists
     if os.path.exists(my_directory):
         print('path exists')
@@ -41,9 +58,12 @@ def user_interface(my_directory):
     # sort files in alphabetical order 
     my_files=sorted(my_files)
 
+    import ipdb;ipdb.set_trace() #setting a breakpoint
     #initialize vector where the user's answers to each photo and crop level will be stored
     user_sl = []
     img_counter = 0
+    counter_option = 0 #initializing
+    # loop through images (10 total)
     for filename in my_files:
         # initialize img_counter to keep track of which image we are at
         if filename.endswith(".jpg"):
@@ -76,37 +96,17 @@ def user_interface(my_directory):
             transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
             img_transformed = transform(img_croped)
 
-            test = ImageTk.PhotoImage(img_transformed)
-            label1 = tkinter.Label(top,image=test)
-            label1.image = test
+            # create label separate, then change the name each time through the loop
+            name = ImageTk.PhotoImage(img_transformed)
+            label1 = tkinter.Label(top,image=name)
+            label1.image = name           
 
-            # Position image
-            label1.place(x = 400, y= 40)
-            
-            #how many variables/options want to have 
-            CheckVar1 = IntVar()
-            CheckVar2 = IntVar()
-            CheckVar3 = IntVar()
-            CheckVar4 = IntVar()
-
-            #define visual aspects of it (master, option....)
-
-            with open('MC_options.txt') as f: #opens the textfile with the MC option names
-                labels=[line.strip() for line in f.readlines()]
-
-            option1 = labels[0]
-            option2 = labels[1]
-            option3 = labels[2]
-            option4 = labels[3]
-
-            counter_option = 0 #initializing
-
-        #inside image loop but outside the crop loop
-        counter_option = counter_option + 4 #this will be at the end of the loop once the crop loop is done
-        counter1 = counter_option
-        counter2 = counter_option +1
-        counter3 = counter_option +2
-        counter4 = counter_option +3
+            #inside image loop but outside the crop loop
+            counter_option = counter_option + 4 #this will be at the end of the loop once the crop loop is done
+            counter1 = counter_option
+            counter2 = counter_option +1
+            counter3 = counter_option +2
+            counter4 = counter_option +3
 
         for counter_option in range(0,16):
             option1 = labels[counter1]
@@ -182,4 +182,4 @@ def user_interface(my_directory):
 #     user_sl = np.reshape(user_sl,[10,19])
 
 #     return(user_sl)
-# user_interface('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final') #find a way to make this accessible to everyone's computer rather than making it local
+user_interface('C:\\Users\emmar\Documents\CLPS0950\CS-Project-Final')
