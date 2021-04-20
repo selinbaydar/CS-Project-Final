@@ -27,6 +27,7 @@ def onSelect():
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
+<<<<<<< HEAD
     # if the answer is wrong for a certain image, change variables:             
     #         left_box = left_box - 10
     #         upper_box = upper_box - 10
@@ -35,6 +36,12 @@ def onSelect():
     #         zoom_level = zoom_level +1
     # use my_img=crop_me("dog.jpg",left_box,upper_box,right_box,lower_box)
     # user_ans[image_counter,zoom_level] = False
+=======
+    #if correct .. escape to next image 
+    # else
+
+#
+>>>>>>> 89d2d577900643152bea614654cb967c9e71869c
 
 # #track of image num 1-10
 image_counter = 0 
