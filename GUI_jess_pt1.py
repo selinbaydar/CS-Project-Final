@@ -13,6 +13,7 @@ def onSelect():
     upper_box=190
     right_box=210
     lower_box=210
+  
     #keeps track of how many times submit is pressed
     onSelect.counter +=1
     image_counter = onSelect.counter
@@ -22,12 +23,25 @@ def onSelect():
         #print(labels[0])
         #will change which image file depending on correct count
         name = str(labels[(image_counter)])
+
+# image1 = Image.open("burger.jpg")
+# transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
+# image1 = transform(image1)
+
+# test = ImageTk.PhotoImage(image1)
+# label1 = tk.Label(top,image=test)
+# label1.image = test
+# label1.place(x = 400, y= 40)
+
     #sets the image
     my_img = name
     im = Image.open(my_img)#variable
+    transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
+    im = transform(im)
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
+
     with open('MC_options.txt') as f: #opens the textfile with the MC option names
         labels=[line.strip() for line in f.readlines()]
         #define options based off textfile
@@ -105,6 +119,9 @@ text.insert(END, "Select only one option. ")
 text.pack()
 
 image1 = Image.open("burger.jpg")
+transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
+image1 = transform(image1)
+
 test = ImageTk.PhotoImage(image1)
 label1 = tk.Label(top,image=test)
 label1.image = test
