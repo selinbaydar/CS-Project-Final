@@ -8,16 +8,18 @@ from tkinter import messagebox as mb
 import tkinter as tk 
 import numpy as np
 
+
+
 def onSelect():
     left_box=190
     upper_box=190
     right_box=210
     lower_box=210
-  
+
     #keeps track of how many times submit is pressed
-    onSelect.counter +=1
+    # onSelect.counter +=1
     # to do: make image_coutner dependent on True or False answer, not on if button is pressed?
-    image_counter = onSelect.counter
+    image_counter = 1
     #image_counter = 1
     with open('image_names.txt') as f: #opens the textfile with the MC option names
         labels=[line.strip() for line in f.readlines()]
@@ -33,8 +35,6 @@ def onSelect():
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
-
-
 
 
     with open('MC_options.txt') as f: #opens the textfile with the MC option names
@@ -54,28 +54,23 @@ def onSelect():
     T2.set(option2)
     T3.set(option3)
     T4.set(option4)
-    with open('GUI_answer.txt') as f:
-        labels=[line.strip() for line in f.readlines()]
-        correct_ans = int(labels[image_counter])
-        print(correct_ans) 
-        var1_ans = str(var1.get())
-        var2_ans = str(var2.get())
-        var3_ans = str(var3.get())
-        var4_ans = str(var4.get())
-        if var1_ans or var2_ans or var3_ans or var4_ans == correct_ans:
+
+with open('GUI_answer.txt') as f:
+    labels=[line.strip() for line in f.readlines()]
+    correct_ans = int(labels[image_counter])
+    print(correct_ans)
+    correct = False
+    while not correct:
+        if var1.get() == correct_ans or var2.get() == correct_ans or var3.get() == correct_ans or var4.get() == correct_ans:
             image_counter += 1
             print(image_counter)
             print("yay")
+            correct = True
         else:
             print('wrong')
+            onSelect()
 
 
-        # if var1.get() or var2.get() or var3.get() or var4.get() == correct_ans:
-        #     image_counter += 1
-        #     print(image_counter)
-        #     print("yay")
-        # else:
-        #     print('wrong')
     #unselects answers after submit button pressed
     var1.set(0)
     var2.set(0)
