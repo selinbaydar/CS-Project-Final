@@ -8,3 +8,4 @@ sunglasses.jpg
 tiger.jpg
 turtle.jpg
 waffle.jpg
+waffle.jpg

@@ -1,4 +1,4 @@
-# written by JO and EJR
+# written by JO (GUI general interface, sorting through options and images) and EJR (zoom/crop, placing GUI interface in correct locations, etc.. )
 #debugged and tested by JO 
 # import all required packages
 from tkinter import *
@@ -8,27 +8,18 @@ from tkinter import messagebox as mb
 import tkinter as tk 
 import numpy as np
 
-
 def onSelect():
-    print(var1.get())
-    print(var2.get())
-    print(var3.get())
-    print(var4.get())
-
-    #print('HI')
-    var1.set(0)
-    #my_img = "dog.jpg"
     left_box=190
     upper_box=190
     right_box=210
     lower_box=210
-
     #keeps track of how many times submit is pressed
     onSelect.counter +=1
     image_counter = onSelect.counter
+    #image_counter = 1
     with open('image_names.txt') as f: #opens the textfile with the MC option names
         labels=[line.strip() for line in f.readlines()]
-        print(labels[0])
+        #print(labels[0])
         #will change which image file depending on correct count
         name = str(labels[(image_counter)])
     #sets the image
@@ -37,7 +28,6 @@ def onSelect():
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
-    print(image_counter)
     with open('MC_options.txt') as f: #opens the textfile with the MC option names
         labels=[line.strip() for line in f.readlines()]
         #define options based off textfile
@@ -55,6 +45,22 @@ def onSelect():
     T2.set(option2)
     T3.set(option3)
     T4.set(option4)
+    with open('GUI_answer.txt') as f:
+        labels=[line.strip() for line in f.readlines()]
+        correct_ans = int(labels[image_counter])
+        print(correct_ans) 
+        if var1.get() or var2.get() or var3.get() or var4.get() == correct_ans:
+            image_counter += 1
+            print(image_counter)
+            print("yay")
+        else:
+            print('wrong')
+    #unselects answers after submit button pressed
+    var1.set(0)
+    var2.set(0)
+    var3.set(0)
+    var4.set(0)
+
     # if the answer is wrong for a certain image, change variables:             
     #         left_box = left_box - 10
     #         upper_box = upper_box - 10
@@ -65,24 +71,11 @@ def onSelect():
     # user_ans[image_counter,zoom_level] = False
 onSelect.counter = 0 
 # #track of image num 1-10
-
 # #track zoom level 1-15
 zoom_level = 0
 # #initialize matrix of user answers all listed as TRUE, which will later be replaced with FALSE if user is wrong
 user_ans = np.ones(shape = [10,19])
 
-'''with open('MC_options.txt') as f: #opens the textfile with the MC option names
-    labels=[line.strip() for line in f.readlines()]
-    #option1 = str(labels[4])
-    option1 = str(labels[image_counter+4])
-    #print(option1) - prints out first line 
-    option2 = str(labels[5])
-    #option2 = str(labels[image_counter+3])
-    option3 = str(labels[6])
-    #option3 = str(labels[image_counter+2])
-    option4 = str(labels[7])
-    #option4 = str(labels[image_counter+1])
-    #need to make it so labels[x] turns into new one each time image_counter increases '''
 
 '''def check_ans(image_counter):
     #image counter still not working but when it does->
@@ -138,13 +131,13 @@ C1 = tk.Checkbutton(top, textvariable = T1, variable = var1, \
                  onvalue = 1, offvalue = 0, height=5, \
                  width = 10,)
 C2 = tk.Checkbutton(top, textvariable = T2, variable = var2, \
-                 onvalue = 1, offvalue = 0, height=5, \
+                 onvalue = 2, offvalue = 0, height=5, \
                  width = 10)
 C3 = tk.Checkbutton(top, textvariable = T3, variable = var3, \
-                 onvalue = 1, offvalue = 0, height=5, \
+                 onvalue = 3, offvalue = 0, height=5, \
                  width = 10)
 C4 = tk.Checkbutton(top, textvariable = T4, variable = var4, \
-                 onvalue = 1, offvalue = 0, height=5, \
+                 onvalue = 4, offvalue = 0, height=5, \
                  width = 10)
 C1.pack()
 C2.pack()
