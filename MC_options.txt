@@ -7,7 +7,7 @@ white_blanket    5
 golden_retriever
 fur_rug
 jeep  8
-iphone
+iphone 9
 train
 window
 soccer_ball
