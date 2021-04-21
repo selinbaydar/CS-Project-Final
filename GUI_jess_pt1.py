@@ -7,14 +7,15 @@ from torchvision import transforms
 from tkinter import messagebox as mb
 import tkinter as tk 
 import numpy as np
+from crop_img import crop_me
 
+left_box=150
+upper_box=150
+right_box=260
+lower_box=260
 
 
 def onSelect():
-    left_box=190
-    upper_box=190
-    right_box=210
-    lower_box=210
 
     #keeps track of how many times submit is pressed
     # onSelect.counter +=1
@@ -120,7 +121,7 @@ text.insert(INSERT, "Please identify the image. ")
 text.insert(END, "Select only one option. ")
 text.pack()
 
-image1 = Image.open("burger.jpg")
+image1 = Image.open(crop_me("burger.jpg",left_box,upper_box,right_box,lower_box=))
 transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
 image1 = transform(image1)
 
