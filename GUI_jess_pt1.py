@@ -1,4 +1,5 @@
 # written by JO and EJR
+#debugged and tested by JO 
 # import all required packages
 from tkinter import *
 from PIL import Image, ImageTk
@@ -9,31 +10,37 @@ import numpy as np
 
 
 def onSelect():
+    print(var1.get())
+    print(var2.get())
+    print(var3.get())
+    print(var4.get())
 
-    #print(var1.get())
     #print('HI')
     var1.set(0)
-    #names each checkbutton, will change as GUI loops through
-    #right now will show correct options AFTER clicking submit, need to set the first ones?
-
-    #need to make it so labels[x] turns into new one each time image_counter increases 
-
-    my_img = "dog.jpg"
+    #my_img = "dog.jpg"
     left_box=190
     upper_box=190
     right_box=210
     lower_box=210
+
+    #keeps track of how many times submit is pressed
+    onSelect.counter +=1
+    image_counter = onSelect.counter
+    with open('image_names.txt') as f: #opens the textfile with the MC option names
+        labels=[line.strip() for line in f.readlines()]
+        print(labels[0])
+        #will change which image file depending on correct count
+        name = str(labels[(image_counter)])
+    #sets the image
+    my_img = name
     im = Image.open(my_img)#variable
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
-    #keeps track of how many times submit is pressed
-    onSelect.counter +=1
-    image_counter = onSelect.counter
-
     print(image_counter)
     with open('MC_options.txt') as f: #opens the textfile with the MC option names
         labels=[line.strip() for line in f.readlines()]
+        #define options based off textfile
         #option1 = str(labels[4])
         option1 = str(labels[(4*image_counter)])
         #print(option1) - prints out first line 
@@ -43,6 +50,7 @@ def onSelect():
         option3 = str(labels[4*image_counter+2])
         #option4 = str(labels[7])
         option4 = str(labels[4*image_counter+3])
+    #names each checkbutton, will change as GUI loops through
     T1.set(option1)
     T2.set(option2)
     T3.set(option3)
