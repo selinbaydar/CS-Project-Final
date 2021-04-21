@@ -166,6 +166,11 @@ def zoom_me(my_directory):
     resnet_sl = np.reshape(resnet_sl,[10,19])
     vgg_sl= np.reshape(vgg_sl,[10,19])
     dense_sl = np.reshape(dense_sl,[10,19])
+    print(alex_sl)
+    print(squeeze_sl)
+    print(resnet_sl)
+    print(vgg_sl)
+    print(dense_sl)
 
     return(alex_sl,squeeze_sl,resnet_sl,vgg_sl,dense_sl)
 zoom_me('C:/Users/emmar/Documents/CLPS0950/CS-Project-Final')
