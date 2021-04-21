@@ -1,13 +1,13 @@
-cheeseburger   0
-light_bulb     1
-mouth          2
-garden_salad    3
-sand    4
-white_blanket    5
+cheeseburger   
+light_bulb     
+mouth          
+garden_salad    
+sand    
+white_blanket    
 golden_retriever
 fur_rug
-jeep  8
-iphone 9
+jeep  
+iphone 
 train
 window
 soccer_ball

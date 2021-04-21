@@ -1,0 +1,10 @@
+burger.jpg
+dog.jpg
+jeep.jpg
+laptop.jpg
+mushroom.jpg
+pillow.jpg
+sunglasses.jpg
+tiger.jpg
+turtle.jpg
+waffle.jpg
