@@ -16,6 +16,7 @@ def onSelect():
   
     #keeps track of how many times submit is pressed
     onSelect.counter +=1
+    # to do: make image_coutner dependent on True or False answer, not on if button is pressed?
     image_counter = onSelect.counter
     #image_counter = 1
     with open('image_names.txt') as f: #opens the textfile with the MC option names
