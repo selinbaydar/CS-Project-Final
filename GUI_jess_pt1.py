@@ -31,6 +31,7 @@ def onSelect():
     #sets the image
     my_img = name
     im = Image.open(my_img)#variable
+    im = crop_me(im,left_box,upper_box,right_box,lower_box)
     transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
     im = transform(im)
     tim = ImageTk.PhotoImage(im)
@@ -121,7 +122,7 @@ text.insert(INSERT, "Please identify the image. ")
 text.insert(END, "Select only one option. ")
 text.pack()
 
-image1 = Image.open(crop_me("burger.jpg",left_box,upper_box,right_box,lower_box))
+image1 = Image.open("burger.jpg")
 transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
 image1 = transform(image1)
 
