@@ -24,15 +24,6 @@ def onSelect():
         #will change which image file depending on correct count
         name = str(labels[(image_counter)])
 
-# image1 = Image.open("burger.jpg")
-# transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
-# image1 = transform(image1)
-
-# test = ImageTk.PhotoImage(image1)
-# label1 = tk.Label(top,image=test)
-# label1.image = test
-# label1.place(x = 400, y= 40)
-
     #sets the image
     my_img = name
     im = Image.open(my_img)#variable
@@ -41,6 +32,9 @@ def onSelect():
     tim = ImageTk.PhotoImage(im)
     label1.configure(image=tim)
     label1.image = tim
+
+
+
 
     with open('MC_options.txt') as f: #opens the textfile with the MC option names
         labels=[line.strip() for line in f.readlines()]
@@ -146,16 +140,16 @@ T4.set('garden_salad')
 
 C1 = tk.Checkbutton(top, textvariable = T1, variable = var1, \
                  onvalue = 1, offvalue = 0, height=5, \
-                 width = 10,)
+                 width = 20,)
 C2 = tk.Checkbutton(top, textvariable = T2, variable = var2, \
                  onvalue = 2, offvalue = 0, height=5, \
-                 width = 10)
+                 width = 20)
 C3 = tk.Checkbutton(top, textvariable = T3, variable = var3, \
                  onvalue = 3, offvalue = 0, height=5, \
-                 width = 10)
+                 width = 20)
 C4 = tk.Checkbutton(top, textvariable = T4, variable = var4, \
                  onvalue = 4, offvalue = 0, height=5, \
-                 width = 10)
+                 width = 20)
 C1.pack()
 C2.pack()
 C3.pack()
