@@ -56,20 +56,20 @@ def onSelect():
     T3.set(option3)
     T4.set(option4)
 
-with open('GUI_answer.txt') as f:
-    labels=[line.strip() for line in f.readlines()]
-    correct_ans = int(labels[image_counter])
-    print(correct_ans)
-    correct = False
-    while not correct:
-        if var1.get() == correct_ans or var2.get() == correct_ans or var3.get() == correct_ans or var4.get() == correct_ans:
-            image_counter += 1
-            print(image_counter)
-            print("yay")
-            correct = True
-        else:
-            print('wrong')
-            onSelect()
+    with open('GUI_answer.txt') as f:
+        labels=[line.strip() for line in f.readlines()]
+        correct_ans = int(labels[image_counter])
+        print(correct_ans)
+        correct = False
+        while not correct:
+            if var1.get() == correct_ans or var2.get() == correct_ans or var3.get() == correct_ans or var4.get() == correct_ans:
+                image_counter += 1
+                print(image_counter)
+                print("yay")
+                correct = True
+            else:
+                print('wrong')
+                onSelect()
 
 
     #unselects answers after submit button pressed
@@ -121,7 +121,7 @@ text.insert(INSERT, "Please identify the image. ")
 text.insert(END, "Select only one option. ")
 text.pack()
 
-image1 = Image.open(crop_me("burger.jpg",left_box,upper_box,right_box,lower_box=))
+image1 = Image.open(crop_me("burger.jpg",left_box,upper_box,right_box,lower_box))
 transform = transforms.Compose([transforms.Resize(240),transforms.CenterCrop(224)])
 image1 = transform(image1)
 
