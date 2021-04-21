@@ -58,12 +58,24 @@ def onSelect():
         labels=[line.strip() for line in f.readlines()]
         correct_ans = int(labels[image_counter])
         print(correct_ans) 
-        if var1.get() or var2.get() or var3.get() or var4.get() == correct_ans:
+        var1_ans = str(var1.get())
+        var2_ans = str(var2.get())
+        var3_ans = str(var3.get())
+        var4_ans = str(var4.get())
+        if var1_ans or var2_ans or var3_ans or var4_ans == correct_ans:
             image_counter += 1
             print(image_counter)
             print("yay")
         else:
             print('wrong')
+
+
+        # if var1.get() or var2.get() or var3.get() or var4.get() == correct_ans:
+        #     image_counter += 1
+        #     print(image_counter)
+        #     print("yay")
+        # else:
+        #     print('wrong')
     #unselects answers after submit button pressed
     var1.set(0)
     var2.set(0)
