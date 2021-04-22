@@ -51,33 +51,37 @@ names = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11','12','13','14',
 
 plt.subplot(3,3,1)
 plt.bar(names,alex_c1,0.5,color='grey',edgecolor='cyan')
-plt.xlabel('Crop Level')
 plt.title('Alex')
+plt.tick_params(axis='x', which='major', labelsize=5)
 
 plt.subplot(3,3,2)
 plt.bar(names,squeeze_c1,0.5,color='grey',edgecolor='cyan')
-plt.xlabel('Crop Level')
 plt.title('Squeeze')
+plt.tick_params(axis='x', which='major', labelsize=5)
 
 plt.subplot(3,3,3)
 plt.bar(names,resnet_c1,0.5,color='grey',edgecolor='cyan')
-plt.xlabel('Crop Level')
 plt.title('Resnet')
+plt.tick_params(axis='x', which='major', labelsize=5)
 
 plt.subplot(3,3,4)
 plt.bar(names,vgg_c1,0.5,color='grey',edgecolor='cyan')
-plt.xlabel('Crop Level')
 plt.title('VGG')
+plt.tick_params(axis='x', which='major', labelsize=5)
 
 plt.subplot(3,3,5)
 plt.bar(names,dense_c1,0.5,color='grey',edgecolor='cyan')
-plt.xlabel('Crop Level')
 plt.title('Dense')
+plt.tick_params(axis='x', which='major', labelsize=5)
 
 plt.subplot(3,3,6)
 plt.bar(names,user_c1,0.5,color='cyan', edgecolor='black')
-plt.xlabel('Crop Level')
 plt.title('YOU! (the user)')
+
+axes = plt.gca()
+axes.xaxis.label.set_size(20)
+axes.yaxis.label.set_size(20)
+plt.tick_params(axis='x', which='major', labelsize=5)
 
 plt.show()
 
