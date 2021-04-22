@@ -1,5 +1,5 @@
 # code written, debugged and tested by EJR
-# compare the 6 boolean matrixes that correspond to which answers are T/F
+
 #from zoom_game import zoom_me
 import seaborn as sns 
 import matplotlib.pyplot as plt
