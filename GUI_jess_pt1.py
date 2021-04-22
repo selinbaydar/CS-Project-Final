@@ -65,7 +65,6 @@ def onSelect():
             print("correct")
         else:
             print('wrong')
-
     #unselects answers after submit button pressed
     var1.set(0)
     var2.set(0)

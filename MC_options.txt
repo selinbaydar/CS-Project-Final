@@ -38,3 +38,7 @@ car_tire
 kitchen_counter
 waffle_iron
 ink_pad
+quiz complete, please exit!
+quiz complete, please exit!
+quiz complete, please exit!
+quiz complete, please exit!
