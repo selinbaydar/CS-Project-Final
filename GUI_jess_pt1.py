@@ -1,5 +1,5 @@
 # written by JO (GUI general interface, sorting through options and images) and EJR (zoom/crop, placing GUI interface in correct locations, etc.. )
-#debugged and tested by JO 
+# debugged and tested by JO, SB and EJR
 # import all required packages
 from tkinter import *
 from PIL import Image, ImageTk
